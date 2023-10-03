@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Contact</title>
-</head>
-<body>
+ <head>
+	<title>Contact</title>
+ </head>
+ <body>
 
-<h1>Contact</h1>
-<br>
-<ul style="list-style-type:none;">
-	<li><a href="http://localhost/educom-webshop-basis-1696248352/">Home</a></li>
-	<li><a href="http://localhost/educom-webshop-basis-1696248352/about.html">About</a></li>
-	<li><a href="http://localhost/educom-webshop-basis-1696248352/contact.html">Contact</a></li>
-</ul>
-<br>
-<form action="/contact.html">
+	<h1>Contact</h1>
+	<br>
+	<ul style="list-style-type:none;">
+		<li><a href="http://localhost/educom-webshop-basis-1696248352/">Home</a></li>
+		<li><a href="http://localhost/educom-webshop-basis-1696248352/about.html">About</a></li>
+		<li><a href="http://localhost/educom-webshop-basis-1696248352/contact.html">Contact</a></li>
+	</ul>
+	<br>
+	<form action="/contact.html">
 	<!--Aanhefkeuze-->
-	<label for="aanhef">Aanhef:</label><br>
-	<select name="aanhef" id="aanhef">
-		<option value="Dhr.">Dhr.</option>
-		<option value="Mvr.">Mvr.</option>
-		<option value="Geenvanbeiden">Geen van beide</option>
-	</select><br>
+	<label for="salutation">Aanhef:</label><br>
+		<select name="salutation" id="salutation">
+			<option value="mr.">Dhr.</option>
+			<option value="mrs.">Mvr.</option>
+			<option value="neither">Geen van beide</option>
+		</select><br>
 		
 	
 	<!--Formulier met naam, emailadres en telefoonnummer-->	
-	<label for="naam">Naam:</label><br>
-	<input type="text" id="naam" name="naam" placeholder="John Doe"><br>
+	<label for="name">Naam:</label><br>
+	<input type="text" id="name" name="name" placeholder="John Doe"><br>
 	<label for="email">Emailadres:</label><br>
 	<input type="text" id="email" name="email" placeholder="j.doe@example.com"><br>
-	<label for="telefoonnummer">Telefoonnummer:</label><br>
-	<input type="text" id="telefoonnummer" name="telefoonnummer" placeholder="06-12345678"><br>
+	<label for="phonenumber">Telefoonnummer:</label><br>
+	<input type="text" id="phonenumber" name="phonenumber" placeholder="06-12345678"><br><br>
 	
-	<!--Radio button met contactwijze-->	
-	<label for="email">Contactwijze:</label><br>
-	<input type="radio" id="email" name="contactwijze" value="email">
-	<label for="email">Email</label><br>
-	<input type="radio" id="telefoon" name="contactwijze" value="telefoon">
-	<label for="telefoon">Telefoon</label><br><br>
+	<!--Radio button met contactwijze-->
+	<label for="email2">Contactwijze:</label><br>
+	<input type="radio" id="email2" name="email2" value="email">
+	<label for="email2">Email</label><br>
+	<input type="radio" id="phone" name="phone" value="phone">
+	<label for="phone">Telefoon</label><br><br>
 	
 	<!--Reden voor het verzenden van een bericht-->
-	<label for="bericht">Uw bericht:</label><br>
-	<textarea id="bericht" name="bericht" rows="3" cols="50"></textarea><br><br>
+	<label for="message">Uw bericht:</label><br>
+	<textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>
 	
 	<!--Verzendknop-->
 	<input type="submit" value="Verzenden">
-</form>
-<br>
+ </form>
+ <br>
 
-</body>
-<footer>
-<p>&copy 2023<br>Nick Koole</p>
-</footer>
+ </body>
+ <footer>
+	<p>&copy 2023<br>Nick Koole</p>
+ </footer>
 </html>
