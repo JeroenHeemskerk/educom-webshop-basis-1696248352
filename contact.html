@@ -16,6 +16,7 @@
 	<br>
 	
 	<form action="/contact.html">
+	
 	<!--Aanhefkeuze-->
 	<label for="salutation">Aanhef:</label><br>
 		<select name="salutation" id="salutation">
@@ -26,11 +27,11 @@
 		
 	
 	<!--Formulier met naam, emailadres en telefoonnummer-->	
-	<label for="name">Naam:</label><br>
+	<label for="name">Naam:</label>
 	<input type="text" id="name" name="name" placeholder="John Doe"><br>
-	<label for="email">Emailadres:</label><br>
+	<label for="email">Emailadres:</label>
 	<input type="text" id="email" name="email" placeholder="j.doe@example.com"><br>
-	<label for="phonenumber">Telefoonnummer:</label><br>
+	<label for="phonenumber">Telefoonnummer:</label>
 	<input type="text" id="phonenumber" name="phonenumber" placeholder="06-12345678"><br><br>
 	
 	<!--Radio button met contactwijze-->
@@ -40,8 +41,8 @@
 	<input type="radio" id="phone" name="phone" value="phone">
 	<label for="phone">Telefoon</label><br><br>
 	
-	<!--Reden voor het verzenden van een bericht-->
-	<label for="message">Uw bericht:</label><br>
+	<!--Mogelijkheid tot verzenden bericht-->
+	<label for="message" class="labelinfrontofinputfield">Uw bericht:</label><br>
 	<textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>
 	
 	<!--Verzendknop-->

@@ -17,16 +17,24 @@ footer {
 	text-align: right;
 }
 
+/*aanpassen van de breedte van de inputvelden bij het contactformulier*/
+input[type=text] {
+	width: 400px;
+}
+
+/*Grijze tekst met een witte achtergrond voor de hoofdtekst */
 .pagetext {
 	background-color: white;
 	color: rgb(80,80,80);
 	font-size: 12px;
 }
 
+/*Creëren van een horizontaal navigatiemenu*/
 .navlist {
 	float: left;
 }
 
+/*Kleur en border aanpassingen van het navigatiemenu*/
 .nav a {
 	background-color: blue;
 	border-color: black;
