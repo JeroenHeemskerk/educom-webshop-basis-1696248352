@@ -8,6 +8,12 @@ body, footer {
 	text-align: left;
 }
 
+.pagetext {
+	background-color: white;
+	color: rgb(80,80,80);
+	font-size: 12px;
+}
+
 .navlist {
 	float: left;
 }
