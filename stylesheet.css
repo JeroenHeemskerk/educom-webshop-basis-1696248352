@@ -2,10 +2,19 @@ h1 {
 	font-size: 80px;
 	text-align: center;
 }
-body, footer {
+body {
 	max-width: 800px;
 	margin: auto;
 	text-align: left;
+}
+
+footer {
+	background-color: black;
+	color: white;
+	font-size: 10px;
+	max-width: 800px;
+	margin: auto;
+	text-align: right;
 }
 
 .pagetext {
