@@ -9,14 +9,46 @@
 <br>
 <ul style="list-style-type:none;">
 	<li><a href="http://localhost/educom-webshop-basis-1696248352/">Home</a></li>
-	<li><a href="http://localhost/educom-webshop-basis-1696248352/contact.html">Contact</a></li>
 	<li><a href="http://localhost/educom-webshop-basis-1696248352/about.html">About</a></li>
+	<li><a href="http://localhost/educom-webshop-basis-1696248352/contact.html">Contact</a></li>
 </ul>
 <br>
-<p>Tekst</p>
+<form action="/contact.html">
+	<!--Aanhefkeuze-->
+	<label for="aanhef">Aanhef:</label><br>
+	<select name="aanhef" id="aanhef">
+		<option value="Dhr.">Dhr.</option>
+		<option value="Mvr.">Mvr.</option>
+		<option value="Geenvanbeiden">Geen van beide</option>
+	</select><br>
+		
+	
+	<!--Formulier met naam, emailadres en telefoonnummer-->	
+	<label for="naam">Naam:</label><br>
+	<input type="text" id="naam" name="naam" placeholder="John Doe"><br>
+	<label for="email">Emailadres:</label><br>
+	<input type="text" id="email" name="email" placeholder="j.doe@example.com"><br>
+	<label for="telefoonnummer">Telefoonnummer:</label><br>
+	<input type="text" id="telefoonnummer" name="telefoonnummer" placeholder="06-12345678"><br>
+	
+	<!--Radio button met contactwijze-->	
+	<label for="email">Contactwijze:</label><br>
+	<input type="radio" id="email" name="contactwijze" value="email">
+	<label for="email">Email</label><br>
+	<input type="radio" id="telefoon" name="contactwijze" value="telefoon">
+	<label for="telefoon">Telefoon</label><br><br>
+	
+	<!--Reden voor het verzenden van een bericht-->
+	<label for="bericht">Uw bericht:</label><br>
+	<textarea id="bericht" name="bericht" rows="3" cols="50"></textarea><br><br>
+	
+	<!--Verzendknop-->
+	<input type="submit" value="Verzenden">
+</form>
 <br>
+
 </body>
 <footer>
-<p>&copy 2023<br>Nick</p>
+<p>&copy 2023<br>Nick Koole</p>
 </footer>
 </html>
