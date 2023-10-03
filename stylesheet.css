@@ -7,3 +7,11 @@ body, footer {
 	margin: auto;
 	text-align: left;
 }
+
+.navlist {
+	float: left;
+}
+
+.nav a {
+	border-style: solid;
+}
