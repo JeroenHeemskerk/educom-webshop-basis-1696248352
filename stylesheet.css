@@ -14,4 +14,5 @@ body, footer {
 
 .nav a {
 	border-style: solid;
+	text-decoration: none;
 }
