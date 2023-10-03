@@ -1,0 +1,8 @@
+h1 {
+	color: blue;
+}
+body, footer {
+	max-width: 800px;
+	margin: auto;
+	text-align: left;
+}
