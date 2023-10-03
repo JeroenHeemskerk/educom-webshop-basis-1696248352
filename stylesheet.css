@@ -13,6 +13,9 @@ body, footer {
 }
 
 .nav a {
+	background-color: blue;
+	border-color: black;
 	border-style: solid;
+	color: white;
 	text-decoration: none;
 }
