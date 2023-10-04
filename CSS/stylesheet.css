@@ -19,7 +19,7 @@ footer {
 }
 
 ul {
-    list-style-type: none;
+    list-style-type:circle;
 }
 
 /*aanpassen van de breedte van de inputvelden bij het contactformulier*/
@@ -39,6 +39,11 @@ input[type=submit], input[type=radio] {
     font-size: 12px;
 }
 
+/*Verwijdert de list-style voor het navigatiemenu*/
+.nav {
+    list-style-type: none;
+}
+    
 /*Creëren van een horizontaal navigatiemenu*/
 .nav li {
     float: left;
