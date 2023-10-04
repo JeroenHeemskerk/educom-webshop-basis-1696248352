@@ -1,1 +1,54 @@
-/* Cascade Style Sheet for this website */
+h1 {
+    color: black;
+    font-size: 80px;
+    text-align: center;
+}
+body {
+    max-width: 800px;
+    margin: auto;
+    text-align: left;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    max-width: 800px;
+    margin: auto;
+    text-align: right;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/*aanpassen van de breedte van de inputvelden bij het contactformulier*/
+input, textarea {
+    width: 400px;
+}
+
+/*uitzonderingen op de breedte van inputvelden*/
+input[type=submit], input[type=radio] {
+    width: auto;
+}
+
+/*Grijze tekst met een witte achtergrond voor de hoofdtekst */
+.pagetext {
+    background-color: white;
+    color: rgb(80,80,80);
+    font-size: 12px;
+}
+
+/*Creëren van een horizontaal navigatiemenu*/
+.nav li {
+    float: left;
+}
+
+/*Kleur en border aanpassingen van het navigatiemenu*/
+.nav a {
+    background-color: blue;
+    border-color: black;
+    border-style: solid;
+    color: white;
+    text-decoration: none;
+}
