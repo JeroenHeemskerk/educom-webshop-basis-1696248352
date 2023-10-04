@@ -32,11 +32,8 @@ input[type=submit], input[type=radio] {
     width: auto;
 }
 
-/*Grijze tekst met een witte achtergrond voor de hoofdtekst */
-.pagetext {
-    background-color: white;
-    color: rgb(80,80,80);
-    font-size: 12px;
+span {
+    color: red;
 }
 
 /*Verwijdert de list-style voor het navigatiemenu*/
@@ -56,4 +53,11 @@ input[type=submit], input[type=radio] {
     border-style: solid;
     color: white;
     text-decoration: none;
+}
+
+/*Grijze tekst met een witte achtergrond voor de hoofdtekst */
+.pagetext {
+    background-color: white;
+    color: rgb(80,80,80);
+    font-size: 12px;
 }
