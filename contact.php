@@ -24,8 +24,15 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") { 
             $validInput = True;
             
+            //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
+            $salutation = testInput($_POST["salutation"]);
+            $name = testInput($_POST["name"]);
+            $email = testInput($_POST["email"]);
+            $phonenumber = testInput($_POST["phonenumber"]);
+            $message = testInput($_POST["message"]);
+            
+            
             if (!empty($_POST["salutation"])) {
-                $salutation = $_POST["salutation"];
                 
                 //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
                 if (!($salutation == "mr." || $salutation == "mrs." || $salutation == "neither")) {
@@ -38,7 +45,6 @@
             }
             
             if (!empty($_POST["name"])) {
-                $name = $_POST["name"];
                 
                 //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
@@ -51,7 +57,6 @@
             }
             
             if (!empty($_POST["email"])) {
-                $email = $_POST["email"];
                 
                 //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -64,7 +69,6 @@
             }
             
             if (!empty($_POST["phonenumber"])) {
-                $phonenumber = $_POST["phonenumber"];
                 
                 //Als phonenumber niet leeg is wordt gekeken of phonenumber enkel uit nummers bestaat
                 if (!is_numeric($phonenumber)) {
@@ -83,10 +87,7 @@
                 $validInput = False;
             }
             
-            if (!empty($_POST["message"])) {
-                $message = $_POST["message"];
-            }
-            
+            //Indien validInput true is, is het formulier correct ingevuld en aangeleverd. Hierdoor wordt de bedanktpagina zichtbaar.
             if ($validInput) {
                 $displayForm = False;
             }
@@ -96,10 +97,20 @@
             header("contact.php");
         }
         
+        //haalt ongewenste karakters en spaties weg
+        function testInput($input) {
+            $input = trim($input);
+            $input = stripslashes($input);
+            $input = htmlspecialchars($input);
+            return $input;
+        }
+
+        
         if ($displayForm) {
     ?>
     
-    <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+    <!--Post-request wordt middels htmlspecialcharacters aangepast naar enkel HTML entities indien speciale karakters worden gevonden-->
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     
     <!--Aanhefkeuze-->
     <label for="salutation">Aanhef:</label><br>
@@ -137,7 +148,7 @@
         } else {            
     ?>
     
-    <h2>Hartelijk dank voor uw bericht. U zal spoedig een reactie ontvangen</h2>
+    <h2>Hartelijk dank voor uw bericht. U zal spoedig een reactie ontvangen.</h2>
     <h3>Ingevulde gegevens:</h3>
     <p>Aanhef: <?php echo $salutation?><br>
     Naam: <?php echo $name?><br>
