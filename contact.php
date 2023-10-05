@@ -17,17 +17,29 @@
     
     <?php
         $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
-        $errName = $errMail = $errPhonenumber = $errContactmode = "";
+        $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = "";
         $displayForm = True;
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") { 
             $displayForm = False;
-            $salutation = $_POST["salutation"];
+            
+            if (!empty($_POST["salutation"])) {
+                $salutation = $_POST["salutation"];
+                
+                //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
+                if (!($salutation == "mr." || $salutation == "mrs." || $salutation == "neither")) {
+                    $errSalutation = "Enkel 'Dhr.', 'Mvr.' of 'Geen van beide' zijn valide input";
+                    $displayForm = True;
+                }
+            } else {
+                $errSalutation = "Aanhef moet ingevuld zijn";
+                $displayForm = True;
+            }
             
             if (!empty($_POST["name"])) {
                 $name = $_POST["name"];
                 
-                //Als name niet leeg is wordt gekeken of er enkel letters en whitespacen ingevuld zijn
+                //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
                 if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
                     $errName = "Enkel letters en whitespaces zijn toegestaan";
                     $displayForm = True;
@@ -90,7 +102,7 @@
             <option value="mr.">Dhr.</option>
             <option value="mrs.">Mvr.</option>
             <option value="neither">Geen van beide</option>
-        </select><br>
+        </select><span><?php echo $errSalutation;?></span><br>
         
     
     <!--Formulier met naam, emailadres en telefoonnummer--> 
