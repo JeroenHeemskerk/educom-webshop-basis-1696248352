@@ -9,9 +9,9 @@
     <h1>Contact</h1>
     <br>
     <ul class="nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.php">Contact</a></li>
+        <li><a href="index.php?page=home">Home</a></li>
+        <li><a href="index.php?page=about">About</a></li>
+        <li><a href="index.php?page=contact">Contact</a></li>
     </ul>
     <br>
     
@@ -127,7 +127,7 @@
     <label for="email">Emailadres:</label>
     <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="<?php echo $email?>"><span><?php echo $errMail;?></span><br>
     <label for="phonenumber">Telefoonnummer:</label>
-    <input type="text" id="phonenumber" name="phonenumber" placeholder="06-12345678" value="<?php echo $phonenumber?>"><span><?php echo $errPhonenumber;?></span><br><br>
+    <input type="text" id="phonenumber" name="phonenumber" placeholder="0612345678" value="<?php echo $phonenumber?>"><span><?php echo $errPhonenumber;?></span><br><br>
     
     <!--Radio button met contactwijze-->
     <label for="contactmode1">Contactwijze:</label><br><span><?php echo $errContactmode;?></span><br>
