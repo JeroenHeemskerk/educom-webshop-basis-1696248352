@@ -19,7 +19,6 @@
         $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
         $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = "";
         $displayForm = True;
-        $validInput = False;
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") { 
             $validInput = True;
@@ -107,7 +106,8 @@
 
         
         if ($displayForm) {
-    ?>
+    ?>    
+    
     
     <!--Post-request wordt middels htmlspecialcharacters aangepast naar enkel HTML entities indien speciale karakters worden gevonden-->
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
