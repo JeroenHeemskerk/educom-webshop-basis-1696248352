@@ -46,19 +46,19 @@ function showHTMLEnd() {
 function showHeadSection ($page) {
     
     switch ($page) {
-        case "home":
+        case "home.php":
             echo    '<head>
                         <title>Nick zijn website</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
                     </head>';
             break;
-        case "about":
+        case "about.php":
             echo    '<head>
                         <title>About</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
                     </head>';
             break;
-        case "contact":
+        case "contact.php":
             echo    '<head>
                         <title>Contact</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
