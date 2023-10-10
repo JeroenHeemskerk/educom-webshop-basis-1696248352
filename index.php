@@ -9,11 +9,17 @@ function showResponsePage($page){
     showHeadSection($page);
     showBodySection($page);    
     showFooter();
+    showHTMLEnd();
 }
 
 function getRequestedPage() {
     
-    $request = $_GET["page"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $request = "";        
+    } else {
+        $request = $_GET["page"];
+    }
+    
     
     switch ($request) {
         case "home":
@@ -32,22 +38,27 @@ function showHTMLStart() {
     echo "<html>";
 }
 
-function showHeadSection () {
+function showHTMLEnd() {
+    
+    echo "</html>";
+}
+
+function showHeadSection ($page) {
     
     switch ($page) {
-        case home:
+        case "home":
             echo    '<head>
                         <title>Nick zijn website</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
                     </head>';
             break;
-        case about:
+        case "about":
             echo    '<head>
                         <title>About</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
                     </head>';
             break;
-        case contact:
+        case "contact":
             echo    '<head>
                         <title>Contact</title>
                         <link rel="stylesheet" href="./CSS/stylesheet.css">
@@ -62,13 +73,13 @@ function showBodySection($page) {
     echo '<body class="pagetext">';
     
     switch ($page) {
-        case home:
+        case "home.php":
             echo '<h1>Home</h1><br>';
             break;
-        case about:
+        case "about.php":
             echo '<h1>About</h1><br>';
             break;
-        case contact:
+        case "contact.php":
             echo '<h1>Contact</h1><br>';
             break;
     }
@@ -76,13 +87,13 @@ function showBodySection($page) {
     showNavMenu();
     
     switch ($page) {
-        case home:
+        case "home.php":
             include 'home.php';
             break;
-        case about:
+        case "about.php":
             include 'about.php';
             break;
-        case contact:
+        case "contact.php":
             include 'contact.php';
             break;
     }
@@ -91,12 +102,12 @@ function showBodySection($page) {
 
 function showNavMenu() {
     
-    <ul class="nav">
-        <li><a href="index.php?page=home">Home</a></li>
-        <li><a href="index.php?page=about">About</a></li>
-        <li><a href="index.php?page=contact">Contact</a></li>
-    </ul>
-    <br>
+    echo '<ul class="nav">
+            <li><a href="index.php?page=home">Home</a></li>
+            <li><a href="index.php?page=about">About</a></li>
+            <li><a href="index.php?page=contact">Contact</a></li>
+         </ul>
+         <br>';
 }
 
 
