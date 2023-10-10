@@ -1,19 +1,5 @@
 <!DOCTYPE html>
 <html>
- <head>
-    <title>Contact</title>
-    <link rel="stylesheet" href="./CSS/stylesheet.css">
- </head>
- <body class="pagetext">
-    
-    <h1>Contact</h1>
-    <br>
-    <ul class="nav">
-        <li><a href="index.php?page=home">Home</a></li>
-        <li><a href="index.php?page=about">About</a></li>
-        <li><a href="index.php?page=contact">Contact</a></li>
-    </ul>
-    <br>
     
     <?php
         $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
@@ -168,7 +154,4 @@
     <br>
  
  </body>
- <footer>
-    <p>&copy 2023<br>Nick Koole</p>
- </footer>
 </html>

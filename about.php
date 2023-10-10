@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html>
- <head>
-    <title>About</title>
-    <link rel="stylesheet" href="./CSS/stylesheet.css">
- </head>
- <body class="pagetext">
     
-    <h1>About</h1>
-    <br>
-    <ul class="nav">
-        <li><a href="index.php?page=home">Home</a></li>
-        <li><a href="index.php?page=about">About</a></li>
-        <li><a href="index.php?page=contact">Contact</a></li>
-    </ul>
-    <br>
-
     <h2>Informatie over mijzelf</h2>
     <p>Ik ben Nick, 31 jaar oud en ik woon in Culemborg. Ik ben onlangs samen met mijn vriendin naar Culemborg verhuisd. Wonen in Culemborg bevalt ons zeer goed.
     Eerst woonden wij in het centrum van Utrecht waar het vrij druk was. Alhoewel Culemborg een stuk stiller is, merken wij dat we de drukte in Utrecht niet missen.</p>
@@ -35,7 +21,4 @@
     <br>
 
  </body>
- <footer>
-    <p>&copy 2023<br>Nick Koole</p>
- </footer>
 </html>
