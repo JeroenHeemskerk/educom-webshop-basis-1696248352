@@ -15,7 +15,7 @@ function showResponsePage($page){
 function getRequestedPage() {
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $request = "";        
+        $request = "contact.php";        
     } else {
         $request = $_GET["page"];
     }

@@ -93,10 +93,11 @@
     
     
     //Post-request wordt middels htmlspecialcharacters aangepast naar enkel HTML entities indien speciale karakters worden gevonden
-     echo '<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">';
+    echo '<p>'; echo $_SERVER['PHP_SELF']; echo '</p>';
+    echo '<form method="post" action="'; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo '">';
     
     //Aanhefkeuze
-    echo '<label for="salutation">Aanhef:</label><br>
+    echo '<label for="salutation"> Aanhef:</label><br>
         <select name="salutation" id="salutation">
             <option value="mr.">Dhr.</option>
             <option value="mrs.">Mvr.</option>
