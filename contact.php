@@ -93,16 +93,27 @@
     
     
     //Post-request wordt middels htmlspecialcharacters aangepast naar enkel HTML entities indien speciale karakters worden gevonden
-    echo '<p>'; echo $_SERVER['PHP_SELF']; echo '</p>';
-    echo '<form method="post" action="'; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo '">';
+    echo '<form method="post" action="index.php">';
     
     //Aanhefkeuze
-    echo '<label for="salutation"> Aanhef:</label><br>
-        <select name="salutation" id="salutation">
-            <option value="mr.">Dhr.</option>
-            <option value="mrs.">Mvr.</option>
-            <option value="neither">Geen van beide</option>
-        </select><span><?php echo $errSalutation;?></span><br>';
+    echo '<label for="salutation"> Aanhef:</label><br>';        
+        echo '<select name="salutation" id="salutation">';
+        if ($salutation == "mr."){
+            echo '<option value="mr." selected>Dhr.</option>';
+        } else {
+            echo '<option value="mr.">Dhr.</option>';
+        }
+        if ($salutation == "mrs."){
+            echo '<option value="mrs." selected>Mvr.</option>';
+        } else {
+            echo '<option value="mrs.">Mvr.</option>';
+        }
+        if ($salutation == "neither"){
+            echo '<option value="neither" selected>Geen van beide</option>';
+        } else {
+            echo '<option value="neither">Geen van beide</option>';
+        }
+    echo '</select><span>'; echo $errSalutation; echo '</span><br>';
         
     
     //Formulier met naam, emailadres en telefoonnummer

@@ -15,7 +15,7 @@ function showResponsePage($page){
 function getRequestedPage() {
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $request = "contact.php";        
+        return $request = "contact.php";        
     } else {
         $request = $_GET["page"];
     }
@@ -45,27 +45,22 @@ function showHTMLEnd() {
 
 function showHeadSection ($page) {
     
+    echo '<head>';
+    
     switch ($page) {
         case "home.php":
-            echo    '<head>
-                        <title>Nick zijn website</title>
-                        <link rel="stylesheet" href="./CSS/stylesheet.css">
-                    </head>';
+            echo '<title>Nick zijn website</title>';
             break;
         case "about.php":
-            echo    '<head>
-                        <title>About</title>
-                        <link rel="stylesheet" href="./CSS/stylesheet.css">
-                    </head>';
+            echo '<title>About</title>';
             break;
         case "contact.php":
-            echo    '<head>
-                        <title>Contact</title>
-                        <link rel="stylesheet" href="./CSS/stylesheet.css">
-                    </head>';
+            echo '<title>Contact</title>';
             break;
     }
     
+    echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
+    echo '</head>';
 }
 
 function showBodySection($page) {
