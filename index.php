@@ -1,11 +1,13 @@
 <?php
+
 $page = getRequestedPage();
 showResponsePage($page);
 
 function showResponsePage($page){
+    
     showHTMLStart();
-    
-    
+    showHeadSection($page);
+    showBodySection($page);    
     showFooter();
 }
 
@@ -26,18 +28,80 @@ function getRequestedPage() {
 }
 
 function showHTMLStart() {
+    
     echo "<html>";
 }
 
 function showHeadSection () {
-    echo "<head>";
+    
+    switch ($page) {
+        case home:
+            echo    '<head>
+                        <title>Nick zijn website</title>
+                        <link rel="stylesheet" href="./CSS/stylesheet.css">
+                    </head>';
+            break;
+        case about:
+            echo    '<head>
+                        <title>About</title>
+                        <link rel="stylesheet" href="./CSS/stylesheet.css">
+                    </head>';
+            break;
+        case contact:
+            echo    '<head>
+                        <title>Contact</title>
+                        <link rel="stylesheet" href="./CSS/stylesheet.css">
+                    </head>';
+            break;
+    }
+    
 }
 
-function showBodySection() {
+function showBodySection($page) {
+    
+    echo '<body class="pagetext">';
+    
+    switch ($page) {
+        case home:
+            echo '<h1>Home</h1><br>';
+            break;
+        case about:
+            echo '<h1>About</h1><br>';
+            break;
+        case contact:
+            echo '<h1>Contact</h1><br>';
+            break;
+    }
+    
+    showNavMenu();
+    
+    switch ($page) {
+        case home:
+            include 'home.php';
+            break;
+        case about:
+            include 'about.php';
+            break;
+        case contact:
+            include 'contact.php';
+            break;
+    }
+
+}
+
+function showNavMenu() {
+    
+    <ul class="nav">
+        <li><a href="index.php?page=home">Home</a></li>
+        <li><a href="index.php?page=about">About</a></li>
+        <li><a href="index.php?page=contact">Contact</a></li>
+    </ul>
+    <br>
 }
 
 
 function showFooter() {
+    
     echo '<footer><p>&copy 2023<br>Nick Koole</p></footer>';
 }
 ?>
