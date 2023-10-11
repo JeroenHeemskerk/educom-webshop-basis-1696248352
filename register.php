@@ -1,5 +1,5 @@
 <?php
-    $name = $errName = $errMail = $errPassword = "";
+    $name = $email = $errName = $errMail = $errPassword = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         
@@ -27,7 +27,7 @@
         }
     }
     
-    showBody($name, $errName, $errMail, $errPassword);
+    showBody($name, $email, $errName, $errMail, $errPassword);
 
     function checkName($name) {    
     
@@ -116,7 +116,7 @@
     }
     
 
-    function showBody($name, $errName, $errMail, $errPassword){
+    function showBody($name, $email, $errName, $errMail, $errPassword){
         
         //Formulier met naam, emailadres en emailadrescheck
         echo '<br>
@@ -124,11 +124,11 @@
             <label for="name">Naam:</label>
             <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $name; echo '"><span>'; echo $errName; echo '</span><br>
             <label for="email">Emailadres:</label>
-            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value=""><span>'; echo $errMail; echo '</span><br>
+            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $email; echo '"><span>'; echo $errMail; echo '</span><br>
             <label for="password">Wachtwoord:</label>
-            <input type="text" id="password" name="password" value=""><span>'; echo $errPassword; echo '</span><br>
+            <input type="password" id="password" name="password" value=""><span>'; echo $errPassword; echo '</span><br>
             <label for="passwordTwo">Herhaal uw wachtwoord:</label>
-            <input type="text" id="passwordTwo" name="passwordTwo" value=""><br>';
+            <input type="password" id="passwordTwo" name="passwordTwo" value=""><br>';
             
         //Verborgen variabele om ervoor te zorgen dat de registerpagina gevonden kan worden middels de getRequestedPage functie van index.php
         echo '<input type="hidden" name="page" value="register">';
