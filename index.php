@@ -15,24 +15,31 @@ function showResponsePage($page){
 function getRequestedPage() {
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        return $request = "contact.php";        
-    } else {
+        if ($_REQUEST["page"] == "contact") {
+            $request = "contact";
+        } else if ($_REQUEST["page"] == "register") {
+                $request = "register";
+        }
+       //return $request = "contact";       
+    } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
         $request = $_GET["page"];
+    } else {
+        return "home";
     }
     
     
     switch ($request) {
         case "home":
-            return "home.php";
+            return "home";
         case "about":
-            return "about.php";
+            return "about";
         case "contact":
-            return "contact.php";
+            return "contact";
         case "register":
-            return "register.php";
+            return "register";
         default:
-            return "home.php";
-    }
+            return "home";
+    } 
 }
 
 function showHTMLStart() {
@@ -50,16 +57,16 @@ function showHeadSection ($page) {
     echo '<head>';
     
     switch ($page) {
-        case "home.php":
+        case "home":
             echo '<title>Nick zijn website</title>';
             break;
-        case "about.php":
+        case "about":
             echo '<title>About</title>';
             break;
-        case "contact.php":
+        case "contact":
             echo '<title>Contact</title>';
             break;
-        case "register.php":
+        case "register":
             echo '<title>Register</title>';
             break;
     }
@@ -73,16 +80,16 @@ function showBodySection($page) {
     echo '<body class="pagetext">';
     
     switch ($page) {
-        case "home.php":
+        case "home":
             echo '<h1>Home</h1><br>';
             break;
-        case "about.php":
+        case "about":
             echo '<h1>About</h1><br>';
             break;
-        case "contact.php":
+        case "contact":
             echo '<h1>Contact</h1><br>';
             break;
-        case "register.php":
+        case "register":
             echo '<h1>Register</h1><br>';
             break;
     }
@@ -90,16 +97,16 @@ function showBodySection($page) {
     showNavMenu();
     
     switch ($page) {
-        case "home.php":
+        case "home":
             include 'home.php';
             break;
-        case "about.php":
+        case "about":
             include 'about.php';
             break;
-        case "contact.php":
+        case "contact":
             include 'contact.php';
             break;
-        case "register.php":
+        case "register":
             include 'register.php';
             break;
     }

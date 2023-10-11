@@ -79,7 +79,7 @@
             header("contact.php");
         }
         
-        //haalt ongewenste karakters en spaties weg
+    //Haalt ongewenste karakters en spaties weg
     function testInput($input) {
         $input = trim($input);
         $input = stripslashes($input);
@@ -94,6 +94,7 @@
     
     //Post-request wordt middels htmlspecialcharacters aangepast naar enkel HTML entities indien speciale karakters worden gevonden
     echo '<form method="post" action="index.php">';
+     
     
     //Aanhefkeuze
     echo '<label for="salutation"> Aanhef:</label><br>';        
@@ -135,9 +136,12 @@
     echo '<label for="message">Uw bericht:</label><br>
         <textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>';
     
+    //Verborgen variabele om ervoor te zorgen dat de contactpagina gevonden kan worden middels de getRequestedPage functie van index.php
+    echo '<input type="hidden" name="page" value="contact">';
+    
     //Verzendknop
     echo '<input type="submit" value="Verzenden">
-        </form>';
+    </form>';
     
     
         } else {            
