@@ -28,6 +28,8 @@ function getRequestedPage() {
             return "about.php";
         case "contact":
             return "contact.php";
+        case "register":
+            return "register.php";
         default:
             return "home.php";
     }
@@ -57,6 +59,9 @@ function showHeadSection ($page) {
         case "contact.php":
             echo '<title>Contact</title>';
             break;
+        case "register.php":
+            echo '<title>Register</title>';
+            break;
     }
     
     echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
@@ -77,6 +82,9 @@ function showBodySection($page) {
         case "contact.php":
             echo '<h1>Contact</h1><br>';
             break;
+        case "register.php":
+            echo '<h1>Register</h1><br>';
+            break;
     }
     
     showNavMenu();
@@ -91,6 +99,9 @@ function showBodySection($page) {
         case "contact.php":
             include 'contact.php';
             break;
+        case "register.php":
+            include 'register.php';
+            break;
     }
 
 }
@@ -101,6 +112,7 @@ function showNavMenu() {
             <li><a href="index.php?page=home">Home</a></li>
             <li><a href="index.php?page=about">About</a></li>
             <li><a href="index.php?page=contact">Contact</a></li>
+            <li><a href="index.php?page=register">Register</a></li>
          </ul>
          <br>';
 }

@@ -80,15 +80,15 @@
         }
         
         //haalt ongewenste karakters en spaties weg
-        function testInput($input) {
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
-            return $input;
-        }
+    function testInput($input) {
+        $input = trim($input);
+        $input = stripslashes($input);
+        $input = htmlspecialchars($input);
+        return $input;
+    }
 
         
-        if ($displayForm) {
+    if ($displayForm) {
       
     
     

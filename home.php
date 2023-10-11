@@ -1,7 +1,5 @@
 <?php
-
 showBody();
-
 function showBody() {
     
     echo '<h2>Welkom!</h2>
@@ -10,6 +8,5 @@ function showBody() {
      Bedankt voor uw aandacht.</p>
      <br>
     </body>';
-}
-    
+}    
 ?>
