@@ -139,6 +139,7 @@
     
     //Haalt ongewenste karakters en spaties weg
     function testInput($input) {
+        
             $input = trim($input);
             $input = stripslashes($input);
             $input = htmlspecialchars($input);
