@@ -82,11 +82,10 @@
     function checkNewAccount($email) {
         
         $users = fopen("users.txt", "r") or die("Unable to open file!");
-        
+                
+        //Leest eerst de users uit het bestand in een array
         $accounts = array();        
         $i = 0;
-        
-        //Leest eerst de users uit het bestand in een array
         while(!feof($users)) {
             $accounts[$i] = fgets($users);
             $i++;

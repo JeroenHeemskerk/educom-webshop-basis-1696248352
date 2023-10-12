@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 $page = getRequestedPage();
 showResponsePage($page);
 
@@ -14,32 +15,36 @@ function showResponsePage($page){
 
 function getRequestedPage() {
     
+    //Indien sprake is van een POST-request wordt onderzocht welk formulier is opgegeven
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if ($_REQUEST["page"] == "contact") {
-            $request = "contact";
-        } else if ($_REQUEST["page"] == "register") {
-                $request = "register";
+        
+        switch ($_REQUEST["page"]) {
+            case "contact":
+                return "contact";
+            case "register":
+                return "register";
+            case "login":
+                return "login";
         }
-       //return $request = "contact";       
+    
+    //Indien sprake is van een GET-request wordt bepaald welke pagina weergegeven moet worden
     } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        $request = $_GET["page"];
-    } else {
-        return "home";
+        
+        switch ($_GET["page"]) {
+            case "home":
+                return "home";
+            case "about":
+                return "about";
+            case "contact":
+                return "contact";
+            case "register":
+                return "register";
+            case "login";
+                return "login";
+            default:
+                return "home";
+        }
     }
-    
-    
-    switch ($request) {
-        case "home":
-            return "home";
-        case "about":
-            return "about";
-        case "contact":
-            return "contact";
-        case "register":
-            return "register";
-        default:
-            return "home";
-    } 
 }
 
 function showHTMLStart() {
@@ -69,6 +74,9 @@ function showHeadSection ($page) {
         case "register":
             echo '<title>Register</title>';
             break;
+        case "login":
+            echo '<title>Login</title>';
+            break;
     }
     
     echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
@@ -92,6 +100,9 @@ function showBodySection($page) {
         case "register":
             echo '<h1>Register</h1><br>';
             break;
+        case "login":
+            echo '<h1>Login</h1><br>';
+            break;
     }
     
     showNavMenu();
@@ -109,6 +120,9 @@ function showBodySection($page) {
         case "register":
             include 'register.php';
             break;
+        case "login":
+            include 'login.php';
+            break;
     }
 
 }
@@ -120,6 +134,7 @@ function showNavMenu() {
             <li><a href="index.php?page=about">About</a></li>
             <li><a href="index.php?page=contact">Contact</a></li>
             <li><a href="index.php?page=register">Register</a></li>
+            <li><a href="index.php?page=login">Login</a></li>
          </ul>
          <br>';
 }
