@@ -1,13 +1,26 @@
-<?php
+<?php    
 
     function showContactBody() {
+    
+        //Data (indien ingegeven) wordt gevalideerd. Vervolgens wordt een lege pagina weergegeven of een pagina met foutmelding aan de hand van de validatie
+        //Bij correct ingegeven data wordt de bedankpagina getoond
+        $data = validateForm();
+        if (!$data['validInput']){
+            showContactForm($data);
+        } else {
+            showContactThanks($data);
+        }
+        echo '<br>';
+    }
+    
+    function validateForm() {
         
-    $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
-    $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = "";
-    $validInput = False;
+        $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
+        $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = "";
+        $validInput = False;        
         
-    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-        $validInput = True;
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $validInput = True;            
             
         //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
         $salutation = testInput($_POST["salutation"]);
@@ -81,8 +94,10 @@
             header("contact.php");
         }
         
-        showContactForm($validInput, $salutation, $errSalutation, $name, $errName, $email, $errMail, $phonenumber, $errPhonenumber, $contactmode, $errContactmode, $message);
+        return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
+        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'validInput' => $validInput);
     }
+    
         
     //Haalt ongewenste karakters en spaties weg
     function testInput($input) {
@@ -93,44 +108,41 @@
     }
 
     
-    function showContactForm($validInput, $salutation, $errSalutation, $name, $errName, $email, $errMail, $phonenumber, $errPhonenumber, $contactmode, $errContactmode, $message) {
-        
-        //Het formulier wordt weergegeven indien validInput false is
-        if (!$validInput) {   
+    function showContactForm($data) {
     
         echo '<form method="post" action="index.php">';     
     
         //Aanhefkeuze
         echo '<label for="salutation"> Aanhef:</label><br>';        
             echo '<select name="salutation" id="salutation">';
-            if ($salutation == "mr."){
+            if ($data['salutation'] == "mr."){
                 echo '<option value="mr." selected>Dhr.</option>';
             } else {
                 echo '<option value="mr.">Dhr.</option>';
             }
-            if ($salutation == "mrs."){
+            if ($data['salutation'] == "mrs."){
                 echo '<option value="mrs." selected>Mvr.</option>';
             } else {
                 echo '<option value="mrs.">Mvr.</option>';
             }
-            if ($salutation == "neither"){
+            if ($data['salutation'] == "neither"){
                 echo '<option value="neither" selected>Geen van beide</option>';
             } else {
                 echo '<option value="neither">Geen van beide</option>';
             }
-        echo '</select><span>'; echo $errSalutation; echo '</span><br>';
+        echo '</select><span>'; echo $data['errSalutation']; echo '</span><br>';
         
     
         //Formulier met naam, emailadres en telefoonnummer
         echo '<label for="name">Naam:</label>
-            <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $name; echo '"><span>'; echo $errName; echo '</span><br>
+            <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $data['name']; echo '"><span>'; echo $data['errName']; echo '</span><br>
             <label for="email">Emailadres:</label>
-            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $email; echo '"><span>'; echo $errMail; echo '</span><br>
+            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $data['email']; echo '"><span>'; echo $data['errMail']; echo '</span><br>
             <label for="phonenumber">Telefoonnummer:</label>
-            <input type="text" id="phonenumber" name="phonenumber" placeholder="0612345678" value="'; echo $phonenumber; echo '"><span>'; echo $errPhonenumber; echo '</span><br><br>';
+            <input type="text" id="phonenumber" name="phonenumber" placeholder="0612345678" value="'; echo $data['phonenumber']; echo '"><span>'; echo $data['errPhonenumber']; echo '</span><br><br>';
     
         //Radio button met contactwijze
-        echo '<label for="contactmode1">Contactwijze:</label><span>'; echo $errContactmode; echo '</span><br>
+        echo '<label for="contactmode1">Contactwijze:</label><span>'; echo ' ' . $data['errContactmode']; echo '</span><br>
             <input type="radio" id="contactmode1" name="contactmode" value="email">
             <label for="contactmode1">Email</label><br>
             <input type="radio" id="contactmode2" name="contactmode" value="phone">
@@ -145,32 +157,32 @@
     
         //Verzendknop
         echo '<input type="submit" value="Verzenden">
-        </form>';
+        </form>';   
     
+        }
+        
+    function showContactThanks($data) {            
     
-        } else {            
-    
+        //Bedanktformulier wordt opgemaakt met de ingevulde gegevens
         echo '<h2>Hartelijk dank voor uw bericht. U zal spoedig een reactie ontvangen.</h2>
-        <h3>Ingevulde gegevens:</h3>
-        <p>Aanhef: ';
-        echo $salutation;
+                <h3>Ingevulde gegevens:</h3>
+                <p>Aanhef: ';
+        echo $data['salutation'];
         echo '<br>Naam: ';
-        echo $name; 
+        echo $data['name']; 
         echo '<br>Emailadres: ';
-        echo $email;
+        echo $data['email'];
         echo '<br>Telefoonnummer: ';
-        echo $phonenumber;
+        echo $data['phonenumber'];
         echo '<br>Contactwijze: '; 
-        if ($contactmode == "email") {
+        if ($data['contactmode'] == "email") {
+            
             echo "email";
         } else {
             echo "telefonisch";
         }
         echo '<br>Bericht: ';
-        echo $message;
+        echo $data['message'];
         echo '</p>';    
         }
-        echo '<br>';
-    
-    }
 ?>
