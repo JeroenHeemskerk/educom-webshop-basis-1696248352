@@ -76,33 +76,24 @@
         
         $users = fopen("users.txt", "r") or die("Unable to open file!");
         
-        //Leest eerst de users uit het bestand in een array
-        $accounts = array();        
-        $i = 0;
+        //Controleer of email en password overeenkomen met een bestaande user
         while(!feof($users)) {
-            $accounts[$i] = fgets($users);
-            $i++;
+            $account = explode("|", fgets($users));
+            trim($account[2]);
+            if ($account[0] == $email && $account[2] == $password) {
+                return True;
+            }
         }
         fclose($users);
         
-        $amountOfAccounts = count($accounts);
-        for($x = 0; $x < $amountOfAccounts; $x++) {
-            $checkUser[$x] = explode("|", $accounts[$x]);
-        
-            if($checkUser[$x][0] == $email && $checkUser[$x][2] == $password) {
-                return True;
-            } 
-        }
-        
-        return False;
-        
+        return False;        
     }
     
     function testInput($input) {
         
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
-            return $input;
+        $input = trim($input);
+        $input = stripslashes($input);
+        $input = htmlspecialchars($input);
+        return $input;
     }
 ?>

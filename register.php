@@ -20,9 +20,9 @@
         //Indien sprake is van correcte input wordt doorgegaan naar het checken of er sprake is van een nieuw account
         if ($errName == "" && $errMail == "" && $errPassword == "") {
             
-            if(checkNewAccount($email)) {
+            if(checkNewEmail($email)) {
                 
-                //Bij het bestaan van een nieuw uniek account wordt deze aangemaakt
+                //Bij het bestaan van een nieuw uniek emailadres wordt deze aangemaakt
                 registerNewAccount($name, $email, $password);
             } else {
                 $errMail = "Dit emailadres is al in gebruik";
@@ -84,28 +84,17 @@
         }    
     }
 
-    function checkNewAccount($email) {
+    function checkNewEmail($email) {
         
-        $users = fopen("users.txt", "r") or die("Unable to open file!");
-                
-        //Leest eerst de users uit het bestand in een array
-        $accounts = array();        
-        $i = 0;
+        $users = fopen("users.txt", "r") or die("Unable to open file!");                
+        //Bekijkt of het nieuw ingegeven emailadres identiek is
         while(!feof($users)) {
-            $accounts[$i] = fgets($users);
-            $i++;
+            $account = explode("|", fgets($users));
+            if ($account[0] == $email) {
+                return false;
+            }
         }
         fclose($users);
-    
-        //Vergelijkt de emailadressen van users vervolgens met het opgegeven emailadres
-        $amountOfAccounts = count($accounts);
-        for($x = 0; $x < $amountOfAccounts; $x++) {
-            $checkEmail[$x] = explode("|", $accounts[$x]);
-        
-            if($checkEmail[$x][0] == $email) {
-                return False;
-            } 
-        }
         
         return True;            
     }
@@ -114,7 +103,7 @@
         
         //Zet de nieuw opgegeven user op de volgende line
         $users = fopen("users.txt", "a") or die("Unable to open file!");
-        $txt = $email . '|' . $name . '|' . $password . PHP_EOL;
+        $txt = PHP_EOL . $email . '|' . $name . '|' . $password;
         fwrite($users, $txt);
         fclose($users);
     }
