@@ -1,4 +1,7 @@
 <?php
+
+    function showLoginBody(){
+        
     $email = $errMail = $errPassword = "";
     
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -17,6 +20,7 @@
             if (login($email, $password)) {                
                 //Het emailadres van het bestaand account wordt toegevoegd aan de session
                 $_SESSION["user"] = $email;
+                
             } else { 
             $errMail = "Emailadres onbekend of foutief wachtwoord";
             }
@@ -24,6 +28,8 @@
     }
     
     showBody($email, $errMail, $errPassword);
+    
+    }
     
     function showBody($email, $errMail, $errPassword){
         

@@ -87,6 +87,43 @@ function showBodySection($page) {
     
     echo '<body class="pagetext">';
     
+    showHeader($page);
+    
+    showNavMenu();
+    
+    showContent($page);
+    
+    echo '</body>';
+}
+
+function showContent($page) {
+    
+    switch ($page) {
+        case "home":
+            include 'home.php';
+            showHomeBody();
+            break;
+        case "about":
+            include 'about.php';
+            showAboutBody();
+            break;
+        case "contact":
+            include 'contact.php';
+            showContactBody();
+            break;
+        case "register":
+            include 'register.php';
+            showRegisterBody();
+            break;
+        case "login":
+            include 'login.php';
+            showLoginBody();
+            break;
+    }
+}
+
+function showHeader($page) {
+    
     switch ($page) {
         case "home":
             echo '<h1>Home</h1><br>';
@@ -104,39 +141,50 @@ function showBodySection($page) {
             echo '<h1>Login</h1><br>';
             break;
     }
-    
-    showNavMenu();
-    
-    switch ($page) {
-        case "home":
-            include 'home.php';
-            break;
-        case "about":
-            include 'about.php';
-            break;
-        case "contact":
-            include 'contact.php';
-            break;
-        case "register":
-            include 'register.php';
-            break;
-        case "login":
-            include 'login.php';
-            break;
-    }
+}
 
+function showMenuItem($page, $title) {
+    echo '<li><a href="index.php?page=' . $page . '">' . $title . '</a></li>';
 }
 
 function showNavMenu() {
     
-    echo '<ul class="nav">
-            <li><a href="index.php?page=home">Home</a></li>
-            <li><a href="index.php?page=about">About</a></li>
-            <li><a href="index.php?page=contact">Contact</a></li>
-            <li><a href="index.php?page=register">Register</a></li>
-            <li><a href="index.php?page=login">Login</a></li>
-         </ul>
-         <br>';
+    echo '<ul class="nav">';
+            showMenuItem("home", "Home");
+            showMenuItem("about", "About");
+            showMenuItem("contact", "Contact");
+            
+            /*If (isset($_SESSION["user"]) {*/
+                /*
+                $users = fopen("users.txt", "r") or die("Unable to open file!");
+        
+                /Leest eerst de users uit het bestand in een array
+                accounts = array();        
+                i = 0;
+                while(!feof($users)) {
+                    $accounts[$i] = fgets($users);
+                    i++;
+                }
+                close($users);
+                        
+                $showName = "";
+                $amountOfAccounts = count($accounts);
+                for($x = 0; $x < $amountOfAccounts; $x++) {
+                    $checkUser[$x] = explode("|", $accounts[$x]);
+        
+                    if($checkUser[$x][0] == $_SESSION["user"]) {
+                        $showName = $checkUser[$x][1];
+                    }
+                }
+                /*echo '<li><a href="index.php?page=logout">Logout '; echo $showName; echo '</a></li>';
+                    
+
+                } else {*/
+                    showMenuItem("register", "Register");
+                    showMenuItem("login", "Login");
+                //}          
+    echo '</ul>
+            <br>';
 }
 
 

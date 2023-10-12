@@ -1,4 +1,7 @@
 <?php
+
+    function showRegisterBody() {
+        
     $name = $email = $errName = $errMail = $errPassword = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -28,6 +31,8 @@
     }
     
     showBody($name, $email, $errName, $errMail, $errPassword);
+    
+    }
 
     function checkName($name) {    
     

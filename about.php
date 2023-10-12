@@ -1,6 +1,6 @@
 <?php
-showBody();
-function showBody() {
+
+function showAboutBody() {
      
     echo '<h2>Informatie over mijzelf</h2>
      <p>Ik ben Nick, 31 jaar oud en ik woon in Culemborg. Ik ben onlangs samen met mijn vriendin naar Culemborg verhuisd. Wonen in Culemborg bevalt ons zeer goed.
@@ -19,7 +19,6 @@ function showBody() {
          <li class="pagetext">Series kijken</li>
          <li class="pagetext">Lezen</li>
      </ul>
-     <br>
-    </body>';
+     <br>';
 }
 ?>

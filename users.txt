@@ -1,4 +1,5 @@
 coach@man-kind.nl|Geert Weggemans|halt!
 test@testing.nl|Test Test|test!
 hoi@hoi.nl|Hi Ha|ja!
-n.k@h.com|Nick|nick
+n.k@h.com|Nick|nicka@hotmail.com|albert|albertpass
+a@hotmail.com|albert|albertpass
