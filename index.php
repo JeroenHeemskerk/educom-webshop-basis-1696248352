@@ -2,6 +2,7 @@
 include 'user_service.php';
 include 'file_repository.php';
 include 'validations.php';
+include 'session_manager.php';
 
 session_start();
 
@@ -75,8 +76,9 @@ function processRequest($page) {
             break;        
     }
     
-    return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
-        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'validInput' => $validInput);
+    $data['page'] = $page;
+    
+    return $data;
 }
 
 function validateLogin() {
@@ -104,7 +106,90 @@ function validateLogin() {
         }
     }
     
-    return array('email'=> $email, 'errMail' => $errMail, 'name' => $name 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid);
+    return array('email'=> $email, 'errMail' => $errMail, 'name' => $name 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
+}
+
+function validateContact() {
+    
+    $salutation = $name = $email = $phonenumber = $contactmode = $message = "";
+    $errSalutation = $errName = $errMail = $errPhonenumber = $errContactmode = "";
+    $valid = False;        
+        
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+        //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
+        $salutation = testInput($_POST["salutation"]);
+        $name = testInput($_POST["name"]);
+        $email = testInput($_POST["email"]);
+        $phonenumber = testInput($_POST["phonenumber"]);
+        $message = testInput($_POST["message"]);
+    
+    if (!empty($_POST["salutation"])) {
+                
+            //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
+            if (!($salutation == "mr." || $salutation == "mrs." || $salutation == "neither")) {
+                
+                $errSalutation = "Enkel 'Dhr.', 'Mvr.' of 'Geen van beide' zijn valide input";
+            }
+        } else {
+            $errSalutation = "Aanhef moet ingevuld zijn";
+        }
+            
+        if (!empty($_POST["name"])) {
+                
+            //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
+            if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+                $errName = "Enkel letters en whitespaces zijn toegestaan";
+            }
+        } else {
+            $errName = "Naam moet ingevuld zijn";
+        }
+            
+        if (!empty($_POST["email"])) {
+                
+            //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errMail = "Vul een valide emailadres in";
+            }
+        } else {
+            $errMail = "Emailadres moet ingevuld zijn";
+        }
+            
+        if (!empty($_POST["phonenumber"])) {
+                
+            //Als phonenumber niet leeg is wordt gekeken of phonenumber enkel uit nummers bestaat
+            if (!is_numeric($phonenumber)) {
+                $errPhonenumber = "Enkel cijfers zijn toegestaan";
+            }
+        } else {
+            $errPhonenumber = "Telefoonnummer moet ingevuld zijn";
+        }
+            
+        //Als contactmode leeg is wordt een foutmelding opgenomen
+        if (!empty($_POST["contactmode"])) {
+            
+            $contactmode = $_POST["contactmode"];
+        } else {
+            $errContactmode = "U moet een contactwijze kiezen";
+        }
+        
+        //Als er geen errors voorkomen wordt validInput op true gezet zodat de bedankpagina getoond kan worden
+        if (($errSalutation == "") && ($errName == "") && ($errMail == "") && ($errPhonenumber == "") && ($errContactmode == "")){
+            
+            $valid = True;
+        } else {
+            $valid = False;
+        }        
+            
+        //Ik weet niet of dit zo werkt, het is de bedoeling dat de pagina opnieuw geladen wordt wanneer er een GET-request wordt gedaan
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            header("contact.php");
+        }
+        
+        
+    return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
+        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'valid' => $valid, 'page' => "");
+    
 }
 
 
