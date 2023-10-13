@@ -1,17 +1,13 @@
 <?php
+include 'user_service.php';
+include 'file_repository.php';
+include 'validations.php';
 
 session_start();
-$page = getRequestedPage();
-showResponsePage($page);
 
-function showResponsePage($page){
-    
-    showHTMLStart();
-    showHeadSection($page);
-    showBodySection($page);    
-    showFooter();
-    showHTMLEnd();
-}
+$page = getRequestedPage();
+$data = processRequest($page);
+showResponsePage($page);
 
 function getRequestedPage() {
     
@@ -47,6 +43,79 @@ function getRequestedPage() {
                 return "home";
         }
     }
+}
+
+function processRequest($page) {
+    
+    switch ($page) {
+        
+        case "login":
+            
+            $data = validateLogin();
+            if ($data['valid']) {
+                
+                loginUser($data['name']);
+                $page = "home";
+            }
+            break;
+        
+        case "logout":
+        
+            logoutUser();
+            $page = "home";
+            break;
+        
+        case "contact":
+            
+            $data = validateContact();
+            if ($data['valid']) {
+                
+                $page = "thanks";
+            }
+            break;        
+    }
+    
+    return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
+        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'validInput' => $validInput);
+}
+
+function validateLogin() {
+    
+    $email = $password = $name = $errMail = $errPassword = "";
+    $valid = False;
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        //Eerst worden ongewenste karakters verwijderd
+        $email = testInput($_POST["email"]);
+        $password = testInput($_POST["password"]);
+        
+        //Vervolgens wordt gekeken of correcte input gegeven is
+        $errMail = checkEmail($email);
+        $errPassword = checkPassword($password);
+        
+        //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
+        if ($errMail == "" && $errPassword == "") {
+            
+            if (authenticateUser($email, $password)) {
+                $name = findUserByEmail($email);
+                $valid = True;
+            }
+        }
+    }
+    
+    return array('email'=> $email, 'errMail' => $errMail, 'name' => $name 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid);
+}
+
+
+
+function showResponsePage($data){
+    
+    showHTMLStart();
+    showHeadSection($page);
+    showBodySection($page);    
+    showFooter();
+    showHTMLEnd();
 }
 
 function showHTMLStart() {
@@ -123,7 +192,7 @@ function showContent($page) {
             break;
         case "logout":
             include 'logout.php';
-            logOut();
+            logout();
             break;
     }
 }
