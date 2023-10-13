@@ -23,7 +23,8 @@
             if(checkNewEmail($email)) {
                 
                 //Bij het bestaan van een nieuw uniek emailadres wordt deze aangemaakt
-                registerNewAccount($name, $email, $password);
+                registerNewAccount($name, $email, $password);                
+                //HIER EEN REDIRECT NAAR DE LOGINPAGINA
             } else {
                 $errMail = "Dit emailadres is al in gebruik";
             }

@@ -14,24 +14,23 @@
         $errMail = checkEmail($email);
         $errPassword = checkPassword($password);
         
-        //Indien sprake is van correcte input wordt doorgegaan naar het checken of er sprake is van een bestaand account
+        //Indien sprake is van correcte input wordt doorgegaan naar het checken of er sprake is van een bestaand account en wordt daarop ingelogd
         if ($errMail == "" && $errPassword == "") {
             
-            if (login($email, $password)) {                
-                //Het emailadres van het bestaand account wordt toegevoegd aan de session
-                $_SESSION["user"] = $email;
+            if (!login($email, $password)) {
                 
-            } else { 
-            $errMail = "Emailadres onbekend of foutief wachtwoord";
-            }
+                //De naam van het bestaand account wordt toegevoegd aan de session
+                $errMail = "Emailadres onbekend of foutief wachtwoord";
+                //HIER EEN REDIRECT NAAR HOME.
+            } 
         }
     }
     
-    showBody($email, $errMail, $errPassword);
+    showContentBody($email, $errMail, $errPassword);
     
     }
     
-    function showBody($email, $errMail, $errPassword){
+    function showContentBody($email, $errMail, $errPassword){
         
         //Inlogformulier welke om een emailadres en een wachtwoord verzoekt
         echo '<br>
@@ -81,6 +80,7 @@
             $account = explode("|", fgets($users));
             trim($account[2]);
             if ($account[0] == $email && $account[2] == $password) {
+                $_SESSION["user"] = $account[1];
                 return True;
             }
         }
