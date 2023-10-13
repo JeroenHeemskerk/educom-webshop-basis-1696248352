@@ -17,17 +17,12 @@
         $errMail = checkEmail($email);
         $errPassword = checkPassword($password, $passwordTwo);
         
-        //Indien sprake is van correcte input wordt doorgegaan naar het checken of er sprake is van een nieuw account
+        //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
         if ($errName == "" && $errMail == "" && $errPassword == "") {
-            
-            if(checkNewEmail($email)) {
                 
-                //Bij het bestaan van een nieuw uniek emailadres wordt deze aangemaakt
-                registerNewAccount($name, $email, $password);                
-                //HIER EEN REDIRECT NAAR DE LOGINPAGINA
-            } else {
-                $errMail = "Dit emailadres is al in gebruik";
-            }
+            //Bij het bestaan van een nieuw uniek emailadres wordt deze aangemaakt
+            registerNewAccount($name, $email, $password);                
+            //HIER EEN REDIRECT NAAR DE LOGINPAGINA
         }
     }
     
@@ -57,8 +52,12 @@
             //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 return "Vul een valide emailadres in";
-            } else {
+            }
+            if (checkNewEmail($email)) {
+                //Als email niet leeg en valide is, wordt gekeken of sprake is van een nieuw emailadres
                 return "";
+            } else {
+                return "Dit emailadres is al in gebruik";
             }
         } else {
             return "Emailadres moet ingevuld zijn";
