@@ -20,7 +20,6 @@
         $validInput = False;        
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $validInput = True;            
             
         //de input vanuit het formulier wordt hier in variabelen gezet en vervolgens opgeschoond door middel van de testInput functie
         $salutation = testInput($_POST["salutation"]);
@@ -34,12 +33,11 @@
                 
             //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
             if (!($salutation == "mr." || $salutation == "mrs." || $salutation == "neither")) {
+                
                 $errSalutation = "Enkel 'Dhr.', 'Mvr.' of 'Geen van beide' zijn valide input";
-                $validInput = False;
             }
         } else {
             $errSalutation = "Aanhef moet ingevuld zijn";
-            $validInput = False;
         }
             
         if (!empty($_POST["name"])) {
@@ -47,11 +45,9 @@
             //Als name niet leeg is wordt gekeken of er enkel letters en whitespaces ingevuld zijn
             if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
                 $errName = "Enkel letters en whitespaces zijn toegestaan";
-                $validInput = False;
             }
         } else {
             $errName = "Naam moet ingevuld zijn";
-            $validInput = False;
         }
             
         if (!empty($_POST["email"])) {
@@ -59,11 +55,9 @@
             //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errMail = "Vul een valide emailadres in";
-                $validInput = False;
             }
         } else {
             $errMail = "Emailadres moet ingevuld zijn";
-            $validInput = False;
         }
             
         if (!empty($_POST["phonenumber"])) {
@@ -71,11 +65,9 @@
             //Als phonenumber niet leeg is wordt gekeken of phonenumber enkel uit nummers bestaat
             if (!is_numeric($phonenumber)) {
                 $errPhonenumber = "Enkel cijfers zijn toegestaan";
-                $validInput = False;
             }
         } else {
             $errPhonenumber = "Telefoonnummer moet ingevuld zijn";
-            $validInput = False;
         }
             
         //Als contactmode leeg is wordt een foutmelding opgenomen
@@ -84,15 +76,21 @@
             $contactmode = $_POST["contactmode"];
         } else {
             $errContactmode = "U moet een contactwijze kiezen";
-            $validInput = False;
         }
-            
         
+        //Als er geen errors voorkomen wordt validInput op true gezet zodat de bedankpagina getoond kan worden
+        if (($errSalutation == "") && ($errName == "") && ($errMail == "") && ($errPhonenumber == "") && ($errContactmode == "")){
+            
+            $validInput = True;
+        } else {
+            $validInput = False;
+        }        
             
         //Ik weet niet of dit zo werkt, het is de bedoeling dat de pagina opnieuw geladen wordt wanneer er een GET-request wordt gedaan
         } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
             header("contact.php");
         }
+        
         
         return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
         'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'validInput' => $validInput);
