@@ -19,10 +19,10 @@
             
             if (!login($email, $password)) {
                 
-                //De naam van het bestaand account wordt toegevoegd aan de session
-                $errMail = "Emailadres onbekend of foutief wachtwoord";
+                $errMail = "Emailadres onbekend of foutieve combinatie emailadres en wachtwoord";
+            } else {
                 //HIER EEN REDIRECT NAAR HOME.
-            } 
+            }
         }
     }
     
@@ -36,9 +36,9 @@
         echo '<br>
             <form method="post" action="index.php">
             <label for="email">Vul uw emailadres in:</label>
-            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $email; echo '"><span>'; echo $errMail; echo '</span><br>
+            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $email; echo '"><span>'; if ($errMail != "") {echo '<br>' . $errMail;} echo '</span><br>
             <label for="password">Vul uw wachtwoord in:</label>
-            <input type="password" id="password" name="password" value=""><span>'; echo $errPassword; echo '</span><br>';
+            <input type="password" id="password" name="password" value=""><br><span>'; echo $errPassword; echo '</span><br>';
 
             
         //Verborgen variabele om ervoor te zorgen dat de loginpagina gevonden kan worden middels de getRequestedPage functie van index.php
@@ -77,9 +77,12 @@
         
         //Controleer of email en password overeenkomen met een bestaande user
         while(!feof($users)) {
+            
             $account = explode("|", fgets($users));
             trim($account[2]);
             if ($account[0] == $email && $account[2] == $password) {
+                
+                //De naam van het bestaand account wordt toegevoegd aan de session indien emailadres en wachtwoord met elkaar overeenkomen
                 $_SESSION["user"] = $account[1];
                 return True;
             }
