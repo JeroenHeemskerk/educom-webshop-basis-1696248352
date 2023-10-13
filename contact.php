@@ -1,6 +1,6 @@
 <?php    
 
-    function showContactBody() {
+    /*function showContactBody() {
     
         //Data (indien ingegeven) wordt gevalideerd. Vervolgens wordt een lege pagina weergegeven of een pagina met foutmelding aan de hand van de validatie
         //Bij correct ingegeven data wordt de bedankpagina getoond
@@ -11,10 +11,10 @@
             showContactThanks($data);
         }
         echo '<br>';
-    }
+    }*/
 
     
-    function showContactForm($data) {
+    function showContactBody($data) {
     
         echo '<br><form method="post" action="index.php">';     
     

@@ -8,7 +8,7 @@ session_start();
 
 $page = getRequestedPage();
 $data = processRequest($page);
-showResponsePage($page);
+showResponsePage($data);
 
 function getRequestedPage() {
     
@@ -40,8 +40,6 @@ function getRequestedPage() {
                 return "login";
             case "logout":
                 return "logout";
-            default:
-                return "home";
         }
     }
 }
@@ -106,7 +104,7 @@ function validateLogin() {
         }
     }
     
-    return array('email'=> $email, 'errMail' => $errMail, 'name' => $name 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
+    return array('email'=> $email, 'errMail' => $errMail, 'name' => $name, 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
 }
 
 function validateContact() {
@@ -197,8 +195,8 @@ function validateContact() {
 function showResponsePage($data){
     
     showHTMLStart();
-    showHeadSection($page);
-    showBodySection($page);    
+    showHeadSection($data);
+    showBodySection($data);    
     showFooter();
     showHTMLEnd();
 }
@@ -213,11 +211,11 @@ function showHTMLEnd() {
     echo "</html>";
 }
 
-function showHeadSection ($page) {
+function showHeadSection ($data) {
     
     echo '<head>';
     
-    switch ($page) {
+    switch ($data['page']) {
         case "home":
             echo '<title>Nick zijn website</title>';
             break;
@@ -252,9 +250,9 @@ function showBodySection($page) {
     echo '</body>';
 }
 
-function showContent($page) {
+function showContent($data) {
     
-    switch ($page) {
+    switch ($data['page']) {
         case "home":
             include 'home.php';
             showHomeBody();
@@ -265,7 +263,7 @@ function showContent($page) {
             break;
         case "contact":
             include 'contact.php';
-            showContactBody();
+            showContactBody($data);
             break;
         case "register":
             include 'register.php';
@@ -273,18 +271,18 @@ function showContent($page) {
             break;
         case "login":
             include 'login.php';
-            showLoginBody();
+            showLoginBody($data);
             break;
-        case "logout":
-            include 'logout.php';
-            logout();
+        default:
+            include 'home.php';
+            showHomeBody();
             break;
     }
 }
 
-function showHeader($page) {
+function showHeader($data) {
     
-    switch ($page) {
+    switch ($data['page']) {
         case "home":
             echo '<h1>Home</h1><br>';
             break;
