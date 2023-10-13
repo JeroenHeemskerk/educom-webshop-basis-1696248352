@@ -1,10 +1,10 @@
 <?php
     
-function registerNewAccount($name, $email, $password) {
+function registerNewAccount($data) {
         
         //Zet de nieuw opgegeven user op de volgende line
         $users = fopen("users.txt", "a") or die("Unable to open file!");
-        $txt = PHP_EOL . $email . '|' . $name . '|' . $password;
+        $txt = PHP_EOL . $data['email'] . '|' . $data['name'] . '|' . $data['password'];
         fwrite($users, $txt);
         fclose($users);
     }

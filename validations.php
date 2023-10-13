@@ -14,25 +14,6 @@
         }
     }
     
-    function checkRegisterEmail($email) {
-    
-        if (!empty($_POST["email"])) {
-                
-            //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return "Vul een valide emailadres in";
-            }
-            if (checkNewEmail($email)) {
-                //Als email niet leeg en valide is, wordt gekeken of sprake is van een nieuw emailadres
-                return "";
-            } else {
-                return "Dit emailadres is al in gebruik";
-            }
-        } else {
-            return "Emailadres moet ingevuld zijn";
-        }
-    }
-    
     function checkPassword($password) {
         
         if (empty($_POST["password"])){
@@ -67,6 +48,25 @@
             }
         } else {
             return "Naam moet ingevuld zijn";            
+        }
+    }
+    
+    function checkEmailRegisterForm($email) {
+    
+        if (!empty($_POST["email"])) {
+                
+            //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return "Vul een valide emailadres in";
+            }
+            if (checkNewEmail($email)) {
+                //Als email niet leeg en valide is, wordt gekeken of sprake is van een nieuw emailadres
+                return "";
+            } else {
+                return "Dit emailadres is al in gebruik";
+            }
+        } else {
+            return "Emailadres moet ingevuld zijn";
         }
     }
     

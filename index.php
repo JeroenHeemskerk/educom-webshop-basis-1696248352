@@ -46,37 +46,69 @@ function getRequestedPage() {
 
 function processRequest($page) {
     
-    switch ($page) {
-        
-        case "login":
-            
+    switch ($page) {        
+        case "login":            
             $data = validateLogin();
             if ($data['valid']) {
                 
                 loginUser($data['name']);
                 $page = "home";
             }
-            break;
-        
-        case "logout":
-        
+            break;        
+        case "logout":        
             logoutUser();
             $page = "home";
-            break;
-        
-        case "contact":
-            
+            break;        
+        case "contact":            
             $data = validateContact();
-            if ($data['valid']) {
-                
+            if ($data['valid']) {                
                 $page = "thanks";
             }
-            break;        
+            break;
+        case "register":
+            $data = validateRegister();
+            if ($data['valid']) {
+                registerNewAccount($data);
+                $page = "login";
+            }
     }
     
     $data['page'] = $page;
     
     return $data;
+}
+
+function validateRegister() {
+    
+    $name = $email = $password = $passwordTwo = $errName = $errMail = $errPassword = "";
+    $valid = False;
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        //Eerst worden ongewenste karakters verwijderd
+        $name = testInput($_POST["name"]);
+        $email = testInput($_POST["email"]);
+        $password = testInput($_POST["password"]);
+        $passwordTwo = testInput($_POST["passwordTwo"]);
+        
+        //Vervolgens wordt gekeken of correcte input gegeven is
+        $errName = checkName($name);
+        $errMail = checkEmail($email);
+        //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
+        if ($errMail == "") {
+            $errMail = checkNewEmail($email);
+        }
+        
+        //Eerst wordt bekeken of er wachtwoorden zijn opgegeven waarna de wachtwoorden met elkaar vergeleken worden
+        $errPassword = checkEmailRegisterForm($password, $passwordTwo);
+        
+        //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
+        if ($errName == "" && $errMail == "" && $errPassword == "") {
+            $valid = True;        
+        }
+    }
+    
+    return array('name' => $name, 'errName' => $errName,'email'=> $email, 'errMail' => $errMail, 'password' => $password,'passwordTwo' => $passwordTwo, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
 }
 
 function validateLogin() {
@@ -186,11 +218,8 @@ function validateContact() {
         
         
     return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
-        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'valid' => $valid, 'page' => "");
-    
+        'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'valid' => $valid, 'page' => "");    
 }
-
-
 
 function showResponsePage($data){
     
@@ -199,16 +228,6 @@ function showResponsePage($data){
     showBodySection($data);    
     showFooter();
     showHTMLEnd();
-}
-
-function showHTMLStart() {
-    
-    echo "<html>";
-}
-
-function showHTMLEnd() {
-    
-    echo "</html>";
 }
 
 function showHeadSection ($data) {
@@ -280,6 +299,28 @@ function showContent($data) {
     }
 }
 
+function showNavMenu() {
+    
+    echo '<ul class="nav">';
+            showMenuItem("home", "Home");
+            showMenuItem("about", "About");
+            showMenuItem("contact", "Contact");
+            
+            If (isset($_SESSION["user"])) {
+
+                echo '<li><a href="index.php?page=logout">Logout '; echo $_SESSION["user"] ; echo '</a></li>';
+                } else {
+                    showMenuItem("register", "Register");
+                    showMenuItem("login", "Login");
+                }          
+    echo '</ul>
+            <br>';
+}
+
+function showMenuItem($page, $title) {
+    echo '<li><a href="index.php?page=' . $page . '">' . $title . '</a></li>';
+}
+
 function showHeader($data) {
     
     switch ($data['page']) {
@@ -301,32 +342,19 @@ function showHeader($data) {
     }
 }
 
-function showMenuItem($page, $title) {
-    echo '<li><a href="index.php?page=' . $page . '">' . $title . '</a></li>';
-}
-
-function showNavMenu() {
-    
-    echo '<ul class="nav">';
-            showMenuItem("home", "Home");
-            showMenuItem("about", "About");
-            showMenuItem("contact", "Contact");
-            
-            If (isset($_SESSION["user"])) {
-
-                echo '<li><a href="index.php?page=logout">Logout '; echo $_SESSION["user"] ; echo '</a></li>';
-                } else {
-                    showMenuItem("register", "Register");
-                    showMenuItem("login", "Login");
-                }          
-    echo '</ul>
-            <br>';
-}
-
-
 function showFooter() {
     
     echo '<footer><p>&copy 2023<br>Nick Koole</p></footer>';
+}
+
+function showHTMLStart() {
+    
+    echo "<html>";
+}
+
+function showHTMLEnd() {
+    
+    echo "</html>";
 }
 ?>
 
