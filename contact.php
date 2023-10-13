@@ -108,7 +108,7 @@
     
     function showContactForm($data) {
     
-        echo '<form method="post" action="index.php">';     
+        echo '<br><form method="post" action="index.php">';     
     
         //Aanhefkeuze
         echo '<label for="salutation"> Aanhef:</label><br>';        

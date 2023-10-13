@@ -39,8 +39,10 @@ function getRequestedPage() {
                 return "contact";
             case "register":
                 return "register";
-            case "login";
+            case "login":
                 return "login";
+            case "logout":
+                return "logout";
             default:
                 return "home";
         }
@@ -119,6 +121,10 @@ function showContent($page) {
             include 'login.php';
             showLoginBody();
             break;
+        case "logout":
+            include 'logout.php';
+            logOut();
+            break;
     }
 }
 
@@ -154,35 +160,13 @@ function showNavMenu() {
             showMenuItem("about", "About");
             showMenuItem("contact", "Contact");
             
-            /*If (isset($_SESSION["user"]) {*/
-                /*
-                $users = fopen("users.txt", "r") or die("Unable to open file!");
-        
-                /Leest eerst de users uit het bestand in een array
-                accounts = array();        
-                i = 0;
-                while(!feof($users)) {
-                    $accounts[$i] = fgets($users);
-                    i++;
-                }
-                close($users);
-                        
-                $showName = "";
-                $amountOfAccounts = count($accounts);
-                for($x = 0; $x < $amountOfAccounts; $x++) {
-                    $checkUser[$x] = explode("|", $accounts[$x]);
-        
-                    if($checkUser[$x][0] == $_SESSION["user"]) {
-                        $showName = $checkUser[$x][1];
-                    }
-                }
-                /*echo '<li><a href="index.php?page=logout">Logout '; echo $showName; echo '</a></li>';
-                    
+            If (isset($_SESSION["user"])) {
 
-                } else {*/
+                echo '<li><a href="index.php?page=logout">Logout '; echo $_SESSION["user"] ; echo '</a></li>';
+                } else {
                     showMenuItem("register", "Register");
                     showMenuItem("login", "Login");
-                //}          
+                }          
     echo '</ul>
             <br>';
 }
