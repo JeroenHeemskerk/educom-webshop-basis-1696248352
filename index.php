@@ -27,20 +27,26 @@
         //Indien sprake is van een GET-request wordt bepaald welke pagina weergegeven moet worden
         } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
         
-            switch ($_GET['page']) {
-                case "home":
-                    return "home";
-                case "about":
-                    return "about";
-                case "contact":
-                    return "contact";
-                case "register":
-                    return "register";
-                case "login":
-                    return "login";
-                case "logout":
-                    return "logout";
-            }
+			if (isset($_GET['page'])) {
+				
+				switch ($_GET['page']) {
+					case "home":
+						return "home";
+					case "about":
+						return "about";
+					case "contact":
+						return "contact";
+					case "register":
+						return "register";
+					case "login":
+						return "login";
+					case "logout":
+						return "logout";
+				}
+			} else {
+				//Als geen page geset is met $_GET wordt home weergegeven
+				return "home";
+			}
         }
     }
 
