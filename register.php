@@ -1,6 +1,6 @@
 <?php
 
-    function showRegisterBody() {
+    /*function showRegisterBody() {
         
     $name = $email = $errName = $errMail = $errPassword = "";
 
@@ -28,19 +28,19 @@
     
     showBody($name, $email, $errName, $errMail, $errPassword);
     
-    }   
+    }*/   
 
-    function showBody($name, $email, $errName, $errMail, $errPassword){
+    function showRegisterBody($data){
         
         //Formulier met naam, emailadres en emailadrescheck
         echo '<br>
             <form method="post" action="index.php">
             <label for="name">Naam:</label>
-            <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $name; echo '"><span>'; echo $errName; echo '</span><br>
+            <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $data['name']; echo '"><span>'; echo $data['errName']; echo '</span><br>
             <label for="email">Emailadres:</label>
-            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $email; echo '"><span>'; echo $errMail; echo '</span><br>
+            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $data['email']; echo '"><span>'; echo $data['errMail']; echo '</span><br>
             <label for="password">Wachtwoord:</label>
-            <input type="password" id="password" name="password" value=""><span>'; echo $errPassword; echo '</span><br>
+            <input type="password" id="password" name="password" value=""><span>'; echo $data['errPassword']; echo '</span><br>
             <label for="passwordTwo">Herhaal uw wachtwoord:</label>
             <input type="password" id="passwordTwo" name="passwordTwo" value=""><br>';
             

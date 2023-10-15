@@ -16,12 +16,12 @@ function checkNewEmail($email) {
         while(!feof($users)) {
             $account = explode("|", fgets($users));
             if ($account[0] == $email) {
-                return false;
+                return "Dit emailadres is al in gebruik";
             }
         }
         fclose($users);
         
-        return True;            
+        return "";            
     }
 
 function findUserByEmail($email) {

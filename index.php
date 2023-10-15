@@ -15,7 +15,7 @@ function getRequestedPage() {
     //Indien sprake is van een POST-request wordt onderzocht welk formulier is opgegeven
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
-        switch ($_REQUEST["page"]) {
+        switch ($_REQUEST['page']) {
             case "contact":
                 return "contact";
             case "register":
@@ -27,7 +27,7 @@ function getRequestedPage() {
     //Indien sprake is van een GET-request wordt bepaald welke pagina weergegeven moet worden
     } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
         
-        switch ($_GET["page"]) {
+        switch ($_GET['page']) {
             case "home":
                 return "home";
             case "about":
@@ -94,17 +94,19 @@ function validateRegister() {
         //Vervolgens wordt gekeken of correcte input gegeven is
         $errName = checkName($name);
         $errMail = checkEmail($email);
+        
         //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
         if ($errMail == "") {
-            $errMail = checkNewEmail($email);
-        }
+            
+            $errMail = checkNewEmail($email);        
         
-        //Eerst wordt bekeken of er wachtwoorden zijn opgegeven waarna de wachtwoorden met elkaar vergeleken worden
-        $errPassword = checkEmailRegisterForm($password, $passwordTwo);
+            //Vervolgens wordt bekeken of er wachtwoorden opgegeven zijn, waarna de wachtwoorden met elkaar vergeleken worden
+            $errPassword = checkRegisterPassword($password, $passwordTwo);
         
-        //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
-        if ($errName == "" && $errMail == "" && $errPassword == "") {
-            $valid = True;        
+            //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
+            if ($errName == "" && $errMail == "" && $errPassword == "") {
+                $valid = True;        
+            }
         }
     }
     
@@ -286,7 +288,7 @@ function showContent($data) {
             break;
         case "register":
             include 'register.php';
-            showRegisterBody();
+            showRegisterBody($data);
             break;
         case "login":
             include 'login.php';

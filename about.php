@@ -3,7 +3,7 @@
 function showAboutBody() {
      
     echo '<h2>Informatie over mijzelf</h2>
-     <p>Ik ben Nick, 31 jaar oud en ik woon in Culemborg. Ik ben onlangs samen met mijn vriendin naar Culemborg verhuisd. Wonen in Culemborg bevalt ons zeer goed.
+     <p>Ik ben Nick, 31 jaar oud en woon in Culemborg. Ik ben onlangs samen met mijn vriendin naar Culemborg verhuisd. Wonen in Culemborg bevalt ons zeer goed.
      Eerst woonden wij in het centrum van Utrecht waar het vrij druk was. Alhoewel Culemborg een stuk stiller is, merken wij dat we de drukte in Utrecht niet missen.</p>
 
      <p>Ik heb rechten aan de universiteit in Utrecht gestudeerd. Na drie jaar als juridisch consulent bij een vakbond gewerkt te hebben, heb ik besloten dat dergelijk
