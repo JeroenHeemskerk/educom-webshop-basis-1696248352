@@ -10,8 +10,7 @@
         $users = fopen("users.txt", "r") or die("Unable to open file!");
         
         //Controleer of email en password overeenkomen met een bestaande user
-        while(!feof($users)) {
-            
+        while(!feof($users)) {            
             $account = explode("|", fgets($users));
             trim($account[2]);
             if ($account[0] == $email && $account[2] == $password) {

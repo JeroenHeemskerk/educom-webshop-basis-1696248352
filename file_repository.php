@@ -1,6 +1,6 @@
 <?php
     
-function registerNewAccount($data) {
+    function registerNewAccount($data) {
         
         //Zet de nieuw opgegeven user op de volgende line
         $users = fopen("users.txt", "a") or die("Unable to open file!");
@@ -9,7 +9,7 @@ function registerNewAccount($data) {
         fclose($users);
     }
     
-function checkNewEmail($email) {
+    function checkNewEmail($email) {
         
         $users = fopen("users.txt", "r") or die("Unable to open file!");                
         //Bekijkt of het nieuw ingegeven emailadres identiek is
@@ -24,15 +24,17 @@ function checkNewEmail($email) {
         return "";            
     }
 
-function findUserByEmail($email) {
+    function findUserByEmail($email) {
     
-    while(!feof($users)) {
-            
-        $account = explode("|", fgets($users));
-        if ($account[0] == $email) {
+        $users = fopen("users.txt", "r") or die("Unable to open file!");
+    
+        while(!feof($users)) {            
+            $account = explode("|", fgets($users));
+            if ($account[0] == $email) {
                 
-            return $account[1];
+                return $account[1];
+            }
         }
+        fclose($users);
     }
-}
 ?>
