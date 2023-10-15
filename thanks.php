@@ -1,6 +1,6 @@
 <?php
 
-    function showContactThanks($data) {            
+    function showThanksBody($data) {            
     
         //Bedankformulier wordt opgemaakt met de ingevulde gegevens
         echo '<h2>Hartelijk dank voor uw bericht. U zal spoedig een reactie ontvangen.</h2>

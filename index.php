@@ -49,8 +49,7 @@ function processRequest($page) {
     switch ($page) {        
         case "login":            
             $data = validateLogin();
-            if ($data['valid']) {
-                
+            if ($data['valid']) {                
                 loginUser($data['name']);
                 $page = "home";
             }
@@ -212,10 +211,11 @@ function validateContact() {
         } else {
             $valid = False;
         }        
-            
+        
+        //EVEN IN COMMENTS GELATEN VOOR DE ZEKERHEID
         //Ik weet niet of dit zo werkt, het is de bedoeling dat de pagina opnieuw geladen wordt wanneer er een GET-request wordt gedaan
-        } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            header("contact.php");
+        //} else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        //    header("contact.php");
         }
         
         
@@ -252,6 +252,12 @@ function showHeadSection ($data) {
         case "login":
             echo '<title>Login</title>';
             break;
+        case "thanks":
+            echo '<title>Dankuwel</title>';
+            break;
+        default:
+            echo '<title>Nick zijn website</title>';
+            break;
     }
     
     echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
@@ -260,14 +266,10 @@ function showHeadSection ($data) {
 
 function showBodySection($page) {
     
-    echo '<body class="pagetext">';
-    
-    showHeader($page);
-    
-    showNavMenu();
-    
-    showContent($page);
-    
+    echo '<body class="pagetext">';    
+    showHeader($page);    
+    showNavMenu();    
+    showContent($page);    
     echo '</body>';
 }
 
@@ -293,6 +295,10 @@ function showContent($data) {
         case "login":
             include 'login.php';
             showLoginBody($data);
+            break;
+        case "thanks":
+            include 'thanks.php';
+            showThanksBody($data);
             break;
         default:
             include 'home.php';
@@ -340,6 +346,12 @@ function showHeader($data) {
             break;
         case "login":
             echo '<h1>Login</h1><br>';
+            break;
+        case "thanks":
+            echo '<h1>Dankuwel</h1><br>';
+            break;
+        default:
+            echo '<h1>Home</h1><br>';
             break;
     }
 }
