@@ -11,30 +11,37 @@
     
     function checkNewEmail($email) {
         
-        $users = fopen("users.txt", "r") or die("Unable to open file!");                
-        //Bekijkt of het nieuw ingegeven emailadres identiek is
-        while(!feof($users)) {
-            $account = explode("|", fgets($users));
-            if ($account[0] == $email) {
-                return "Dit emailadres is al in gebruik";
+        $users = fopen("users.txt", "r") or die("Unable to open file!");
+        try {
+            //Bekijkt of het nieuw ingegeven emailadres identiek is
+            while(!feof($users)) {
+                $account = explode("|", fgets($users));
+                if ($account[0] == $email) {
+                    return "Dit emailadres is al in gebruik";
+                }
             }
-        }
-        fclose($users);
         
-        return "";            
+            return "";
+        }
+        finally {
+            fclose($users);
+        }        
     }
 
     function findUserByEmail($email) {
     
         $users = fopen("users.txt", "r") or die("Unable to open file!");
-    
-        while(!feof($users)) {            
-            $account = explode("|", fgets($users));
-            if ($account[0] == $email) {
+        try {
+            while(!feof($users)) {            
+                $account = explode("|", fgets($users));
+                if ($account[0] == $email) {
                 
-                return $account[1];
+                    return $account[1];
+                }
             }
         }
-        fclose($users);
+        finally {
+            fclose($users);
+        }
     }
 ?>

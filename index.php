@@ -140,7 +140,7 @@
                     $name = findUserByEmail($email);
                     $valid = True;
                 } else {
-                    $errMail = "Geen gebruiker bij emailadres kunnen vinden of incorrect wachtwoord";
+                    $errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
                 }
             }
         }
