@@ -14,40 +14,24 @@
     
         //Indien sprake is van een POST-request wordt onderzocht welk formulier is opgegeven
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
-            switch ($_REQUEST['page']) {
-                case "contact":
-                    return "contact";
-                case "register":
-                    return "register";
-                case "login":
-                    return "login";
-            }
+            return getPostVar('home');
     
         //Indien sprake is van een GET-request wordt bepaald welke pagina weergegeven moet worden
-        } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        
-			if (isset($_GET['page'])) {
-				
-				switch ($_GET['page']) {
-					case "home":
-						return "home";
-					case "about":
-						return "about";
-					case "contact":
-						return "contact";
-					case "register":
-						return "register";
-					case "login":
-						return "login";
-					case "logout":
-						return "logout";
-				}
-			} else {
-				//Als geen page geset is met $_GET wordt home weergegeven
-				return "home";
-			}
-        }
+        } else if ($_SERVER["REQUEST_METHOD"] == "GET"){        
+            return getUrlVar('home');
+            
+        } else {
+			//Als geen page geset is met $_GET wordt home weergegeven
+			return "home";
+		}
+    }
+    
+    function getPostVar($default=''){
+        return isset($_POST['page']) ? $_POST['page'] : $default;
+    }
+    
+    function getUrlVar($default='') {
+        return isset($_GET['page']) ? $_GET['page'] : $default;
     }
 
     function processRequest($page) {
