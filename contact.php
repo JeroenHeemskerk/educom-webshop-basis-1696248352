@@ -1,18 +1,4 @@
 <?php    
-
-    /*function showContactBody() {
-    
-        //Data (indien ingegeven) wordt gevalideerd. Vervolgens wordt een lege pagina weergegeven of een pagina met foutmelding aan de hand van de validatie
-        //Bij correct ingegeven data wordt de bedankpagina getoond
-        $data = validateForm();
-        if (!$data['validInput']){
-            showContactForm($data);
-        } else {
-            showContactThanks($data);
-        }
-        echo '<br>';
-    }*/
-
     
     function showContactBody($data) {
     
