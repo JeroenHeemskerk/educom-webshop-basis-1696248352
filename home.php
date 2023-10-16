@@ -1,5 +1,9 @@
 <?php
-
+    
+    function showHomeHeader() {
+        echo '<h1>Home</h1><br>';
+    }
+        
     function showHomeBody() {
     
     echo '<h2>Welkom!</h2>

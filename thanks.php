@@ -1,5 +1,9 @@
 <?php
 
+    function showThanksHeader() {
+        echo '<h1>Thanks</h1><br>';
+    }
+    
     function showThanksBody($data) {            
     
         //Bedankformulier wordt opgemaakt met de ingevulde gegevens

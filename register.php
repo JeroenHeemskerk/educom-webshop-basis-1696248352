@@ -1,5 +1,9 @@
 <?php
-
+    
+    function showRegisterHeader() {
+        echo '<h1>Register</h1><br>';
+    }
+    
     function showRegisterBody($data){
         
         //Formulier met naam, emailadres en emailadrescheck

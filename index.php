@@ -89,31 +89,33 @@
     function showHeadSection ($data) {
     
         echo '<head>';
+        echo '<title>';
     
         switch ($data['page']) {
             case "home":
-                echo '<title>Nick zijn website</title>';
+                echo 'Nick zijn website';
                 break;
             case "about":
-                echo '<title>About</title>';
+                echo 'About';
                 break;
-                case "contact":
-                echo '<title>Contact</title>';
+            case "contact":
+                echo 'Contact';
                 break;
             case "register":
-                echo '<title>Register</title>';
+                echo 'Register';
                 break;
             case "login":
-                echo '<title>Login</title>';
+                echo 'Login';
                 break;
             case "thanks":
-                echo '<title>Dankuwel</title>';
+                echo 'Dankuwel';
                 break;
             default:
-                echo '<title>Nick zijn website</title>';
+                echo 'Nick zijn website';
                 break;
         }
-    
+        
+        echo '</title>';
         echo '<link rel="stylesheet" href="./CSS/stylesheet.css">';
         echo '</head>';
     }
@@ -131,31 +133,24 @@
     
         switch ($data['page']) {
             case "home":
-                include 'home.php';
                 showHomeBody();
                 break;
             case "about":
-                include 'about.php';
                 showAboutBody();
                 break;
             case "contact":
-                include 'contact.php';
                 showContactBody($data);
                 break;
             case "register":
-                include 'register.php';
                 showRegisterBody($data);
                 break;
             case "login":
-                include 'login.php';
                 showLoginBody($data);
                 break;
             case "thanks":
-                include 'thanks.php';
                 showThanksBody($data);
                 break;
             default:
-                include 'home.php';
                 showHomeBody();
                 break;
         }
@@ -176,28 +171,36 @@
     }
 
     function showHeader($data) {
-    
+        
+        //Maakt de header aan en include daarmee ook de respectievelijke php file
         switch ($data['page']) {
             case "home":
-                echo '<h1>Home</h1><br>';
+                include 'home.php';
+                showHomeHeader();
                 break;
             case "about":
-                echo '<h1>About</h1><br>';
+                include 'about.php';
+                showAboutHeader();
                 break;
             case "contact":
-                echo '<h1>Contact</h1><br>';
+                include 'contact.php';
+                showContactHeader();
                 break;
             case "register":
-                echo '<h1>Register</h1><br>';
+                include 'register.php';
+                showRegisterHeader();
                 break;
             case "login":
-                echo '<h1>Login</h1><br>';
+                include 'login.php';
+                showLoginHeader();
                 break;
             case "thanks":
-                echo '<h1>Dankuwel</h1><br>';
+                include 'thanks.php';
+                echo 'Dankuwel';
                 break;
             default:
-                echo '<h1>Home</h1><br>';
+                include 'home.php';
+                showHomeHeader();
                 break;
         }
     }

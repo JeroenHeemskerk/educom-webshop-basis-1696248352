@@ -1,5 +1,9 @@
 <?php
-
+    
+    function showAboutHeader() {
+        echo '<h1>About</h1><br>';
+    }
+    
     function showAboutBody() {
      
     echo '<h2>Informatie over mijzelf</h2>

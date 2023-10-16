@@ -1,5 +1,9 @@
 <?php
     
+    function showLoginHeader() {
+        echo '<h1>Login</h1><br>';
+    }
+    
     function showLoginBody($data){
         
         //Inlogformulier welke om een emailadres en een wachtwoord verzoekt
