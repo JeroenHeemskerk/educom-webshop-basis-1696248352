@@ -14,6 +14,25 @@
         }
     }
     
+    function checkEmailRegisterForm($email) {
+    
+        if (!empty($_POST["email"])) {
+                
+            //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return "Vul een valide emailadres in";
+            }
+            if (checkNewEmail($email)) {
+                //Als email niet leeg en valide is, wordt gekeken of sprake is van een nieuw emailadres
+                return "";
+            } else {
+                return "Dit emailadres is al in gebruik";
+            }
+        } else {
+            return "Emailadres moet ingevuld zijn";
+        }
+    }
+    
     function checkPassword($password) {
         
         if (empty($_POST["password"])){
@@ -51,96 +70,12 @@
         }
     }
     
-    function checkEmailRegisterForm($email) {
-    
-        if (!empty($_POST["email"])) {
-                
-            //Als email niet leeg is wordt gekeken of er sprake is van een valide emailadres
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return "Vul een valide emailadres in";
-            }
-            if (checkNewEmail($email)) {
-                //Als email niet leeg en valide is, wordt gekeken of sprake is van een nieuw emailadres
-                return "";
-            } else {
-                return "Dit emailadres is al in gebruik";
-            }
-        } else {
-            return "Emailadres moet ingevuld zijn";
-        }
-    }
-    
     function testInput($input) {
         
         $input = trim($input);
         $input = stripslashes($input);
         $input = htmlspecialchars($input);
         return $input;
-    }
-    
-    function validateRegister() {
-    
-        $name = $email = $password = $passwordTwo = $errName = $errMail = $errPassword = "";
-        $valid = False;
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-            //Eerst worden ongewenste karakters verwijderd
-            $name = testInput($_POST["name"]);
-            $email = testInput($_POST["email"]);
-            $password = testInput($_POST["password"]);
-            $passwordTwo = testInput($_POST["passwordTwo"]);
-        
-            //Vervolgens wordt gekeken of correcte input gegeven is
-            $errName = checkName($name);
-            $errMail = checkEmail($email);
-        
-            //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
-            if ($errMail == "") {
-            
-                $errMail = checkNewEmail($email);        
-        
-                //Vervolgens wordt bekeken of er wachtwoorden opgegeven zijn, waarna de wachtwoorden met elkaar vergeleken worden
-                $errPassword = checkRegisterPassword($password, $passwordTwo);
-        
-                //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
-                if ($errName == "" && $errMail == "" && $errPassword == "") {
-                    $valid = True;        
-                }
-            }
-        }
-    
-        return array('name' => $name, 'errName' => $errName,'email'=> $email, 'errMail' => $errMail, 'password' => $password,'passwordTwo' => $passwordTwo, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
-    }
-
-    function validateLogin() {
-    
-        $email = $password = $name = $errMail = $errPassword = "";
-        $valid = False;
-    
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-            //Eerst worden ongewenste karakters verwijderd
-            $email = testInput($_POST["email"]);
-            $password = testInput($_POST["password"]);
-        
-            //Vervolgens wordt gekeken of correcte input gegeven is
-            $errMail = checkEmail($email);
-            $errPassword = checkPassword($password);
-        
-            //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
-            if ($errMail == "" && $errPassword == "") {
-            
-                if (authenticateUser($email, $password)) {
-                    $name = findUserByEmail($email);
-                    $valid = True;
-                } else {
-                    $errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
-                }
-            }
-        }
-    
-        return array('email'=> $email, 'errMail' => $errMail, 'name' => $name, 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
     }
 
     function validateContact() {
@@ -214,16 +149,75 @@
             } else {
                 $valid = False;
             }        
-        
-        //EVEN IN COMMENTS GELATEN VOOR DE ZEKERHEID
-        //Ik weet niet of dit zo werkt, het is de bedoeling dat de pagina opnieuw geladen wordt wanneer er een GET-request wordt gedaan
-        //} else if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        //    header("contact.php");
         }
         
         
         return array('salutation' => $salutation, 'errSalutation' => $errSalutation, 'name' => $name, 'errName' => $errName, 'email' => $email, 'errMail' => $errMail, 'phonenumber' => $phonenumber,
         'errPhonenumber' => $errPhonenumber, 'contactmode' => $contactmode, 'errContactmode' => $errContactmode, 'message' => $message, 'valid' => $valid, 'page' => "");    
     }
+    
+    function validateLogin() {
+    
+        $email = $password = $name = $errMail = $errPassword = "";
+        $valid = False;
+    
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+            //Eerst worden ongewenste karakters verwijderd
+            $email = testInput($_POST["email"]);
+            $password = testInput($_POST["password"]);
+        
+            //Vervolgens wordt gekeken of correcte input gegeven is
+            $errMail = checkEmail($email);
+            $errPassword = checkPassword($password);
+        
+            //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
+            if ($errMail == "" && $errPassword == "") {
+            
+                if (authenticateUser($email, $password)) {
+                    $name = findUserByEmail($email);
+                    $valid = True;
+                } else {
+                    $errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
+                }
+            }
+        }
+    
+        return array('email'=> $email, 'errMail' => $errMail, 'name' => $name, 'password' => $password, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
+    }
+    
+    function validateRegister() {
+    
+        $name = $email = $password = $passwordTwo = $errName = $errMail = $errPassword = "";
+        $valid = False;
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+            //Eerst worden ongewenste karakters verwijderd
+            $name = testInput($_POST["name"]);
+            $email = testInput($_POST["email"]);
+            $password = testInput($_POST["password"]);
+            $passwordTwo = testInput($_POST["passwordTwo"]);
+        
+            //Vervolgens wordt gekeken of correcte input gegeven is
+            $errName = checkName($name);
+            $errMail = checkEmail($email);
+        
+            //Nadat een correct emailadres is opgegeven wordt ook gekeken of er sprake is van een nieuw uniek emailadres
+            if ($errMail == "") {
+            
+                $errMail = checkNewEmail($email);        
+        
+                //Vervolgens wordt bekeken of er wachtwoorden opgegeven zijn, waarna de wachtwoorden met elkaar vergeleken worden
+                $errPassword = checkRegisterPassword($password, $passwordTwo);
+        
+                //Indien sprake is van correcte input wordt een nieuw account aangemaakt en de gebruiker geredirect naar de loginpagina
+                if ($errName == "" && $errMail == "" && $errPassword == "") {
+                    $valid = True;        
+                }
+            }
+        }
+    
+        return array('name' => $name, 'errName' => $errName,'email'=> $email, 'errMail' => $errMail, 'password' => $password,'passwordTwo' => $passwordTwo, 'errPassword' => $errPassword, 'valid' => $valid, 'page' => "");
+    }
 ?>
