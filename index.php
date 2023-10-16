@@ -61,6 +61,16 @@
                     $page = "login";
                 }
         }
+        
+        //Aan dat wordt een array menu toegevoegd met de standaard weer te geven items
+        //Naar aanleiding van of de user ingelogd is wordt register en login of logout toegevoegd
+        $data['menu'] = array('home' => 'Home', 'about' => 'About', 'contact' => 'Contact');
+        if (isUserLoggedIn()) {
+            $data['menu']['logout'] = "Logout " . getLoggedInUserName();
+        } else {
+            $data['menu']['register'] = "Register";
+            $data['menu']['login'] = "Login";
+        }
     
         $data['page'] = $page;
     
@@ -108,12 +118,12 @@
         echo '</head>';
     }
 
-    function showBodySection($page) {
+    function showBodySection($data) {
     
         echo '<body class="pagetext">';    
-        showHeader($page);    
-        showNavMenu();    
-        showContent($page);    
+        showHeader($data);    
+        showNavMenu($data);    
+        showContent($data);    
         echo '</body>';
     }
 
@@ -151,22 +161,14 @@
         }
     }
 
-    function showNavMenu() {
-    
-        echo '<ul class="nav">';
-                showMenuItem("home", "Home");
-                showMenuItem("about", "About");
-                showMenuItem("contact", "Contact");
-            
-                If (isset($_SESSION["user"])) {
-
-                    echo '<li><a href="index.php?page=logout">Logout '; echo $_SESSION["user"] ; echo '</a></li>';
-                    } else {
-                        showMenuItem("register", "Register");
-                        showMenuItem("login", "Login");
-                    }          
-        echo '</ul>
-                <br>';
+    function showNavMenu($data) {
+        
+        //Het navigatiemenu wordt door middel van de eerder gedefinieerde items in processRequest opgemaakt
+        echo '<ul class="nav">';        
+        foreach($data['menu'] as $link => $label) {
+            showMenuItem($link, $label);
+        }
+        echo '</ul><br>';                
     }
 
     function showMenuItem($page, $title) {
