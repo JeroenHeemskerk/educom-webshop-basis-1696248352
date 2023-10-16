@@ -1,24 +1,5 @@
 <?php
     
-    function checkNewEmail($email) {
-        
-        $users = fopen("users.txt", "r") or die("Unable to open file!");
-        try {
-            //Bekijkt of het nieuw ingegeven emailadres identiek is
-            while(!feof($users)) {
-                $account = explode("|", fgets($users));
-                if ($account[0] == $email) {
-                    return "Dit emailadres is al in gebruik";
-                }
-            }
-        
-            return "";
-        }
-        finally {
-            fclose($users);
-        }        
-    }
-
     function findUserByEmail($email) {
     
         $users = fopen("users.txt", "r") or die("Unable to open file!");
@@ -26,8 +7,8 @@
             while(!feof($users)) {            
                 $account = explode("|", fgets($users));
                 if ($account[0] == $email) {
-                
-                    return $account[1];
+                    $password = trim($account[2]);
+                    return array ('email' => $account[0], 'name' => $account[1], 'password' => $password);
                 }
             }
         }

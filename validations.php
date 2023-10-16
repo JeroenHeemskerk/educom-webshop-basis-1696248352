@@ -33,6 +33,13 @@
         }
     }
     
+    function checkNewEmail($email) {
+        if (doesEmailExist($email)) {
+            return "Dit emailadres is al in gebruik";
+        }
+        return "";
+    }
+    
     function checkPassword($password) {
         
         if (empty($_POST["password"])){
@@ -173,9 +180,9 @@
         
             //Indien geen foutmeldingen gegeven zijn bij het checken van het emailadres en password is sprake van valide input
             if ($errMail == "" && $errPassword == "") {
-            
-                if (authenticateUser($email, $password)) {
-                    $name = findUserByEmail($email);
+                $user = authenticateUser($email, $password);
+                if (!empty($user)) {
+                    $name = $user['name'];
                     $valid = True;
                 } else {
                     $errMail = "Opgegeven emailadres is niet gekoppeld aan een gebruiker of incorrect wachtwoord";
