@@ -1,8 +1,7 @@
 <?php    
     
-    function showContactBody($data) {
-    
-        echo '<br><form method="post" action="index.php">';     
+    function showContactBody($data) {    
+        showFormStart();    
     
         //Aanhefkeuze
         echo '<label for="salutation"> Aanhef:</label><br>';        
@@ -26,15 +25,15 @@
         
     
         //Formulier met naam, emailadres en telefoonnummer
-        echo '<label for="name">Naam:</label>
-            <input type="text" id="name" name="name" placeholder="John Doe" value="'; echo $data['name']; echo '"><span>'; echo $data['errName']; echo '</span><br>
-            <label for="email">Emailadres:</label>
-            <input type="text" id="email" name="email" placeholder="j.doe@example.com" value="'; echo $data['email']; echo '"><span>'; echo $data['errMail']; echo '</span><br>
-            <label for="phonenumber">Telefoonnummer:</label>
-            <input type="text" id="phonenumber" name="phonenumber" placeholder="0612345678" value="'; echo $data['phonenumber']; echo '"><span>'; echo $data['errPhonenumber']; echo '</span><br><br>';
+        showFormField("name", "Naam:", "text", $data);
+        echo 'value="' . $data['name'] . '"><span>' . $data['errName'] . '</span><br>';
+        showFormField("email", "Emailadres:", "text", $data);
+        echo 'value="' . $data['email'] . '"><span>' . $data['errMail'] . '</span><br>';
+        showFormField("phonenumber", "Telefoonnummer:", "text", $data);
+        echo 'value="' . $data['phonenumber'] . '"><span>' . $data['errPhonenumber'] . '</span><br><br>';
     
         //Radio button met contactwijze
-        echo '<label for="contactmode1">Contactwijze:</label><span>'; echo ' ' . $data['errContactmode']; echo '</span><br>
+        echo '<label for="contactmode1">Contactwijze:</label><span> ' . $data['errContactmode'] . '</span><br>
             <input type="radio" id="contactmode1" name="contactmode" value="email">
             <label for="contactmode1">Email</label><br>
             <input type="radio" id="contactmode2" name="contactmode" value="phone">
@@ -48,9 +47,37 @@
         echo '<input type="hidden" name="page" value="contact">';
     
         //Verzendknop
-        echo '<input type="submit" value="Verzenden">
-        </form>';   
-    
+        showFormEnd();    
         }
+    
+    /*    
+    function showContactBodyTwo($data) {
+        showFormStart();
+        
+        showFormField("name", "Naam:", "text", $data);
+        showFormField("email", "Emailadres:", "text", $data);
+        showFormField("phonenumber", "Telefoonnummer:", "text", $data);
+        //showFormField("salutation", "Aanhef:", 
+        
+        
+        showFormEnd();
+    }
+    */
+        
+    function showFormField($fieldName, $label, $inputType, $data) {        
+
+        echo '<label for="' . $fieldName . '">' . $label . '</label>
+        <input type="' . $inputType . '" id="' . $fieldName .  '" name="' . $fieldName . '" ';
+    }
+                
+    function showFormStart() {
+        echo '<br><form method="post" action="index.php">'; 
+    }
+        
+    function showFormEnd() {
+        echo '<input type="submit" value="Verzenden">';
+        echo '</form>';
+    }
+            
         
 ?>
