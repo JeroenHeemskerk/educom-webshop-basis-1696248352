@@ -12,8 +12,8 @@
             //Controleer of email en password overeenkomen met een bestaande user
             while(!feof($users)) {            
                 $account = explode("|", fgets($users));
-                trim($account[2]);
-                if ($account[0] == $email && $account[2] == $password) {
+                $trimmedPassword = trim($account[2]);
+                if ($account[0] == $email && $trimmedPassword == $password) {
                 
                     return True;
                 }
